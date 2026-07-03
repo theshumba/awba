@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +9,15 @@
 <meta property="og:description" content="A companion that tells you why to pray, not just when. Join the waitlist for early access.">
 <meta property="og:url" content="https://awba.app/">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://theshumba.github.io/awba/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg stroke='%23F2C879' stroke-width='14' stroke-linecap='round' fill='none'%3E%3Cpath d='M109.5,22.6 A78,78 0 0 1 177.4,90.5'/%3E%3Cpath d='M177.4,109.5 A78,78 0 0 1 109.5,177.4'/%3E%3Cpath d='M90.5,177.4 A78,78 0 0 1 22.6,109.5'/%3E%3Cpath d='M22.6,90.5 A78,78 0 0 1 90.5,22.6'/%3E%3C/g%3E%3Ccircle cx='100' cy='100' r='30' fill='%23F2C879'/%3E%3C/svg%3E">
 <style>
   @font-face{font-family:'Bricolage';src:url('fonts/bricolage-400.woff2') format('woff2');font-weight:400;font-display:swap}
@@ -20,6 +29,7 @@
   @font-face{font-family:'PlexAr';src:url('fonts/plexar-600.woff2') format('woff2');font-weight:600;font-display:swap}
 
   :root{
+    /* the kit */
     --bone:#FBF9F6; --paper:#FFFFFF; --ink:#241B2E; --muted:#8A8194;
     --rose:#E14C6A; --orchid:#C874AF; --lavender:#8E6DA8; --gold:#F2C879;
     --line:#EDE7E0; --soft:#4b4356;
@@ -29,229 +39,545 @@
            radial-gradient(circle at 55% 88%,#8E6DA8 0%,rgba(142,109,168,0) 62%),
            radial-gradient(circle at 12% 90%,#E14C6A 0%,rgba(225,76,106,0) 52%),
            #C874AF;
-    --bg:var(--bone); --surface:var(--paper); --text:var(--ink); --sub:var(--soft); --hair:var(--line);
     --glow:rgba(242,200,121,.34);
-    --goldtext:#a97e1e; /* gold as text needs the kit's darkened value on light ground */
+    --goldtext:#a97e1e;
+
+    /* tints — precomputed mixes of the kit above (literal hexes so older iOS Safari renders them) */
+    --tint-lavender:#F3EFF5;   /* lavender 11% on paper */
+    --tint-orchid:#F7ECF4;     /* orchid 14% on paper */
+    --tint-gold:#FCF1DC;       /* gold 26% on paper */
+    --tint-rose:#FCEFF2;       /* rose 9% on paper */
+    --ink-2:#332B3D;           /* paper 7% on ink — raised surface on ink */
+    --bone-sub:#C9C1D2;        /* muted copy on ink (from the dark kit) */
+    --eyebrow:#52495C;         /* muted 45% on ink */
+    --rose-lift:#E97E94;       /* rose 72% on paper — error text on ink */
+
+    /* type scale — headspace’s ladder, bricolage’s voice */
+    --fs-hero:clamp(2.75rem,7.2vw,5.5rem);
+    --fs-h2:clamp(2rem,4.4vw,3.25rem);
+    --fs-h2-quiet:clamp(1.55rem,2.6vw,2.05rem);
+    --fs-lead:clamp(1.125rem,1.7vw,1.3125rem);
+    --fs-body:1.0625rem;
+    --fs-cap:.8125rem;
+
+    /* rhythm */
+    --sec-y:clamp(4rem,9vw,8.25rem);
+    --block-r:clamp(1.25rem,2.6vw,2rem);
+    --block-gutter:clamp(.625rem,2vw,1.5rem);
+    --card-r:1.25rem;
+    --card-shadow:0 1px 8px rgba(36,27,46,.08);
+    --press:0 .125rem 0 rgba(36,27,46,.22);
+    --ease-btn:cubic-bezier(.32,.94,.6,1);
   }
-  :root[data-theme="dark"]{
-    --bg:#1A1320; --surface:#241B2E; --text:#FBF9F6; --sub:#C9C1D2; --muted:#9A90A6; --hair:#3a2f47;
-    --glow:rgba(242,200,121,.22);
-    --goldtext:var(--gold);
-  }
+
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
-  .wrap{max-width:940px;margin:0 auto;padding:0 24px}
+  html,body{overflow-x:hidden;overflow-x:clip}
+  body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:var(--fs-body);line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  img,svg{max-width:100%}
   a{color:var(--rose)}
-  :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:4px}
+  :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+  .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--bone);padding:10px 18px;border-radius:0 0 12px 0;z-index:99}
+  .skip:focus{left:0}
 
-  /* top bar */
-  .bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
-  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brandmini{display:flex;align-items:center;gap:10px;font-family:'Bricolage';font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--text);text-decoration:none}
-  .brandmini .dot{color:var(--gold)}
-  .brandmini svg{width:22px;height:22px}
-  .toggle{border:1px solid var(--hair);background:var(--surface);color:var(--sub);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit}
-  .toggle:hover{color:var(--text)}
+  .wrap{max-width:72.5rem;margin:0 auto;padding:0 clamp(1.25rem,4vw,3rem)}
+  .copy{max-width:47.4rem}
 
-  section{padding:84px 0;border-bottom:1px solid var(--hair)}
-  .kick{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
-  h2{font-family:'Bricolage';font-weight:800;font-size:34px;line-height:1.08;letter-spacing:-.015em;margin-bottom:18px;text-wrap:balance}
-  h3{font-family:'Bricolage';font-weight:600;font-size:19px;margin:0 0 8px}
-  p{color:var(--sub);font-size:16px;max-width:660px}
-  p+p{margin-top:14px}
-  .lead{font-size:19px;color:var(--text);max-width:680px}
+  .kick{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--eyebrow);font-weight:600;margin-bottom:1rem}
+  h2{font-family:'Bricolage';font-weight:800;font-size:var(--fs-h2);line-height:1.06;letter-spacing:-.03em;margin-bottom:1.125rem;text-wrap:balance}
+  h3{font-family:'Bricolage';font-weight:600;font-size:1.25rem;line-height:1.25;margin-bottom:.5rem}
+  p{color:var(--soft)}
+  .lead{font-size:var(--fs-lead);line-height:1.5;color:var(--ink);max-width:42rem}
 
-  /* HERO — the wordmark's mesh stop is this page's one gradient moment */
-  .hero{padding:104px 0 92px;border-bottom:1px solid var(--hair)}
-  .say{color:var(--muted);font-size:15px;letter-spacing:.02em;margin-bottom:26px}
-  .say b{color:var(--sub);font-weight:600}
-  .say .arabic{font-family:'PlexAr';direction:rtl;unicode-bidi:isolate;font-weight:600;color:var(--goldtext);font-size:17px}
-  .wordmark{font-family:'Bricolage';font-weight:800;font-size:clamp(76px,13vw,132px);line-height:.9;letter-spacing:-.03em;color:var(--text)}
-  .wordmark .stop{background:var(--mesh);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  h1.tagline{font-family:'Bricolage';font-weight:600;font-size:clamp(24px,3.4vw,30px);margin-top:38px;color:var(--text);max-width:560px;line-height:1.25;letter-spacing:-.01em}
-  .sub{margin-top:16px;font-size:17px;max-width:560px}
-  .sub em{font-style:italic;color:var(--text)}
-  .btnrow{display:flex;gap:12px;align-items:center;margin-top:34px;flex-wrap:wrap}
-  .btn{display:inline-block;border:none;border-radius:12px;padding:14px 26px;font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .5s ease-out,box-shadow .5s ease-out}
-  .btn.primary{background:var(--rose);color:#fff}
-  .btn.primary:hover{box-shadow:0 6px 24px rgba(225,76,106,.28)}
-  .btn.ghost{background:none;color:var(--muted);padding:14px 10px}
-  .btn.ghost:hover{color:var(--text)}
+  /* ─── pill buttons — one phrase, one colour, everywhere ─── */
+  .btn{display:inline-flex;align-items:center;justify-content:center;border:none;border-radius:999px;height:3.25rem;padding:0 1.75rem;font-family:'Inter',system-ui,sans-serif;font-size:1rem;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent;
+    background:var(--gold);color:var(--ink);box-shadow:var(--press);
+    transition:background .15s var(--ease-btn),color .15s var(--ease-btn),box-shadow .15s var(--ease-btn),transform .15s var(--ease-btn)}
+  .btn:hover{background:var(--ink);color:var(--gold)}
+  .btn:active{transform:translateY(.125rem);box-shadow:0 .125rem 0 transparent}
+  .btn.ghostlink{background:none;box-shadow:none;color:var(--soft);padding:0 .75rem;font-weight:500}
+  .btn.ghostlink:hover{background:none;color:var(--ink)}
 
-  /* the reason */
-  .mech{background:var(--surface);border:1px solid var(--hair);border-radius:18px;padding:26px 30px;margin-top:28px;max-width:680px}
-  .mech p{color:var(--text);font-family:'Bricolage';font-weight:600;font-size:20px;line-height:1.4;max-width:none}
+  /* ─── nav: quiet bar over the hero + slim sticky that arrives after it ─── */
+  .topbar{position:absolute;inset:0 0 auto 0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:5.5rem}
+  .brand{display:flex;align-items:center;gap:.65rem;font-family:'Bricolage';font-weight:800;font-size:1.3125rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+  .brand .dot{color:var(--goldtext)}
+  .brand svg{width:1.65rem;height:1.65rem;display:block}
+  .ring path{stroke-dasharray:100;stroke-dashoffset:100}
+  html.loaded .ring path{animation:ringdraw .32s ease-out forwards}
+  html.loaded .ring path:nth-child(1){animation-delay:.05s}
+  html.loaded .ring path:nth-child(2){animation-delay:.38s}
+  html.loaded .ring path:nth-child(3){animation-delay:.71s}
+  html.loaded .ring path:nth-child(4){animation-delay:1.04s}
+  @keyframes ringdraw{to{stroke-dashoffset:0}}
+  .slimnav{position:fixed;inset:0 0 auto 0;z-index:20;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(-110%);transition:transform .35s var(--ease-btn)}
+  .slimnav.show{transform:translateY(0)}
+  .slimnav .wrap{display:flex;align-items:center;justify-content:space-between;height:4rem}
+  .slimnav .brand{font-size:1.125rem}
+  .slimnav .brand svg{width:1.35rem;height:1.35rem}
+  .slimnav .btn{height:2.5rem;padding:0 1.25rem;font-size:.9375rem}
 
-  /* how it works — a real sequence: understand, return, grow */
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px}
-  .card{background:var(--surface);border:1px solid var(--hair);border-radius:18px;padding:28px}
-  .beat .n{font-family:'Bricolage';font-weight:400;font-size:15px;color:var(--goldtext);letter-spacing:.08em;display:block;margin-bottom:14px}
-  .beat p{font-size:15px}
-  @media(max-width:720px){.grid3{grid-template-columns:1fr}}
+  /* ─── hero ─── */
+  .hero{position:relative;padding:clamp(9.5rem,20vw,13.5rem) 0 clamp(5rem,10vw,7.5rem);overflow:clip}
+  .hero .wrap{position:relative;z-index:1}
+  .callig-hero{z-index:0}
+  .orb{position:absolute;right:-12%;top:-14%;width:min(56vw,44rem);aspect-ratio:1;border-radius:50%;background:var(--mesh);filter:blur(80px);opacity:.16;animation:breathe 8s ease-in-out infinite;pointer-events:none;will-change:transform}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+  .say{color:var(--eyebrow);font-size:.9375rem;letter-spacing:.02em;margin-bottom:1.5rem}
+  .say b{font-weight:600;color:var(--ink)}
+  .say .arabic{font-family:'PlexAr';direction:rtl;unicode-bidi:isolate;font-weight:600;color:var(--goldtext);font-size:1.0625rem}
+  h1{font-family:'Bricolage';font-weight:800;font-size:var(--fs-hero);line-height:1.01;letter-spacing:-.035em;color:var(--ink);max-width:12ch;text-wrap:balance}
+  .sub{margin-top:1.5rem;font-size:var(--fs-lead);line-height:1.55;max-width:34rem}
+  .sub em{font-style:italic;color:var(--ink)}
+  .btnrow{display:flex;gap:.875rem;align-items:center;margin-top:2.25rem;flex-wrap:wrap}
 
-  /* gifting */
+  /* ─── living calligraphy ─── */
+  .callig{color:var(--goldtext)}
+  .callig svg{overflow:visible;display:block;width:100%;height:auto}
+  .callig .pen{animation-duration:2.3s;animation-timing-function:linear;animation-fill-mode:forwards;animation-play-state:paused}
+  .callig.in .pen{animation-play-state:running}
+  .callig figcaption{font-size:var(--fs-cap);font-weight:500;color:var(--eyebrow);letter-spacing:.05em;opacity:0;transition:opacity 1s ease-out}
+  .callig.in figcaption{opacity:1;transition-delay:1.9s}
+  .callig{transition:opacity 1.1s ease-out}
+  .callig.out{opacity:0}
+  .callig-hero{position:absolute;right:clamp(1.25rem,5vw,5rem);top:clamp(7rem,14vw,10rem);width:min(38vw,29rem);color:var(--gold);opacity:.45;pointer-events:none}
+  .callig-hero figcaption{text-align:right;margin-top:.5rem;padding-right:.5rem}
+  .callig-hero.out{opacity:0}
+  .seam{display:flex;justify-content:center;padding:clamp(2.25rem,5vw,3.75rem) 1.5rem}
+  .seam .callig svg{height:clamp(3.25rem,5.5vw,4.5rem);width:auto;margin:0 auto}
+  .seam .callig figcaption{text-align:center;margin-top:.625rem}
+
+  /* ─── sections & colour blocks ─── */
+  section{padding:var(--sec-y) 0}
+  .block{margin:0 var(--block-gutter);border-radius:var(--block-r)}
+  .on-paper{background:var(--paper)}
+
+  /* the reason — white full-bleed */
+  .reason{background:var(--paper)}
+  .mech{display:flex;gap:1.125rem;align-items:flex-start;background:var(--tint-gold);border-radius:var(--card-r);padding:1.75rem 2rem;margin-top:2.5rem;max-width:42.5rem}
+  .mech svg{flex:none;width:2rem;height:2rem;margin-top:.2rem}
+  .mech p{color:var(--ink);font-family:'Bricolage';font-weight:600;font-size:1.25rem;line-height:1.4}
+  .beats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.375rem;margin-top:2.75rem}
+  .beat{background:var(--bone);border-radius:var(--card-r);padding:0;overflow:clip;box-shadow:var(--card-shadow)}
+  .beat .art{height:7.5rem;display:flex;align-items:center;justify-content:center;background:var(--acc)}
+  .beat .art svg{width:3.4rem;height:3.4rem}
+  .beat .body{padding:1.5rem 1.625rem 1.75rem}
+  .beat .n{font-family:'Bricolage';font-weight:400;font-size:.9375rem;color:var(--goldtext);letter-spacing:.08em;display:block;margin-bottom:.625rem}
+  .beat p{font-size:.9375rem;line-height:1.6}
+  .howkick{margin-top:3.5rem}
+
+  /* segmenter — lavender colour block, tappable intents */
+  .segment{background:var(--tint-lavender)}
+  .segment .head{text-align:center;max-width:38rem;margin:0 auto}
+  .segment h2{font-size:var(--fs-h2-quiet);letter-spacing:-.02em}
+  .segment .head p{font-size:1rem}
+  .intents{display:grid;grid-template-columns:repeat(4,1fr);gap:1.125rem;margin-top:2.75rem}
+  .intent{--acc:var(--lavender);display:flex;flex-direction:column;align-items:flex-start;gap:1rem;text-align:left;background:var(--paper);border:2px solid transparent;border-radius:var(--card-r);padding:1.625rem 1.5rem 1.5rem;cursor:pointer;font-family:inherit;box-shadow:var(--card-shadow);-webkit-tap-highlight-color:transparent;transition:transform .15s var(--ease-btn),border-color .15s var(--ease-btn),background .15s var(--ease-btn)}
+  .intent svg{width:2.6rem;height:2.6rem;color:var(--acc)}
+  .intent .t{font-family:'Bricolage';font-weight:600;font-size:1.1875rem;color:var(--ink)}
+  .intent .d{font-size:.875rem;line-height:1.5;color:var(--soft)}
+  .intent:hover{transform:translateY(-3px);border-color:var(--acc);border-color:color-mix(in srgb,var(--acc) 55%,transparent)}
+  .intent[aria-pressed="true"]{background:var(--paper);background:color-mix(in srgb,var(--acc) 12%,var(--paper));border-color:var(--acc)}
+  .intent:focus-visible{outline-color:var(--acc)}
+
+  /* gifting — two warm panels */
+  .gift .panels{display:grid;grid-template-columns:1fr 1fr;gap:1.375rem;margin-top:2.75rem}
+  .panel{border-radius:var(--card-r);padding:2.5rem 2.25rem;min-height:13rem;display:flex;flex-direction:column;justify-content:flex-end;gap:.5rem;position:relative;overflow:clip}
+  .panel svg{position:absolute;top:1.75rem;right:1.75rem;width:3rem;height:3rem}
+  .panel .who{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--eyebrow)}
+  .panel .line{font-family:'Bricolage';font-weight:600;font-size:1.375rem;line-height:1.3;color:var(--ink);max-width:20ch}
+  .panel-give{background:var(--tint-gold)}
+  .panel-keep{background:var(--tint-orchid)}
   .gift h2 .keep{color:var(--muted)}
 
-  /* waitlist — “the lamp left on” */
-  .waitlist{padding:100px 0}
-  .lampcard{position:relative;background:var(--surface);border:1px solid var(--hair);border-radius:22px;padding:56px 28px 48px;max-width:620px;margin:0 auto;text-align:center;overflow:hidden}
-  .lampglow{position:absolute;left:50%;top:74px;width:280px;height:280px;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--glow) 0%,rgba(242,200,121,0) 62%);pointer-events:none;animation:breathe 7s ease-in-out infinite}
-  @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
-  .lampcard .loop{width:64px;height:64px;position:relative}
-  .lampcard h2{margin-top:22px}
-  .lampcard>p{margin:0 auto;max-width:440px}
-  form{margin:30px auto 0;max-width:420px;text-align:left}
-  .field{display:flex;flex-direction:column;gap:6px}
-  label{font-size:14px;font-weight:500;color:var(--text)}
-  input[type=email]{width:100%;border:1px solid var(--hair);background:var(--bg);color:var(--text);border-radius:12px;padding:14px 16px;font-size:16px;font-family:inherit}
-  input[type=email]::placeholder{color:var(--muted)}
-  input[type=email]:focus{outline:2px solid var(--rose);outline-offset:0;border-color:transparent}
-  .consent{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:14px;color:var(--sub)}
-  .consent input{margin-top:4px;width:16px;height:16px;flex:none;accent-color:var(--rose)}
-  form .btn.primary{width:100%;margin-top:18px}
-  .micro{margin-top:16px;font-size:13px;color:var(--muted);text-align:center;max-width:none}
-  .formerr{display:none;margin-top:14px;font-size:14px;color:var(--rose);text-align:center}
-  .confirm{display:none;margin:34px auto 0;max-width:440px}
-  .confirm h3{font-family:'Bricolage';font-weight:600;font-size:22px;line-height:1.3}
-  .confirm h3 .glow{color:var(--goldtext)}
-  .confirm p{margin:12px auto 0;font-size:15px}
+  /* waitlist — the door at night */
+  .waitlist{padding:var(--sec-y) 0}
+  .doorblock{position:relative;background:var(--ink);border-radius:var(--block-r);margin:0 var(--block-gutter);overflow:clip}
+  .doorblock::before{content:"";position:absolute;inset:0;background:var(--mesh);opacity:.07;pointer-events:none}
+  .doorframe{position:relative;max-width:34rem;margin:0 auto;padding:clamp(3.5rem,8vw,5.5rem) 1.5rem clamp(3.75rem,8vw,5.25rem);text-align:center}
+  .doorframe .callig{width:clamp(6.5rem,12vw,8.5rem);margin:0 auto;color:var(--gold)}
+  .doorframe .callig figcaption{color:var(--bone-sub);text-align:center;margin-top:.6rem;white-space:nowrap}
+  .arch{position:absolute;left:50%;top:2rem;transform:translateX(-50%);width:min(78%,22rem);height:auto;color:var(--gold);opacity:.28;pointer-events:none}
+  .doorframe h2{color:var(--bone);margin-top:2rem}
+  .doorframe>p{color:var(--bone-sub);max-width:26rem;margin:0 auto}
+  .doorframe .glowspot{position:absolute;left:50%;top:5.5rem;width:17.5rem;height:17.5rem;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--glow) 0%,rgba(242,200,121,0) 62%);pointer-events:none;animation:glowbreathe 7s ease-in-out infinite}
+  @keyframes glowbreathe{0%,100%{opacity:.5}50%{opacity:1}}
+  form{margin:2.125rem auto 0;max-width:26rem;text-align:left}
+  .field{display:flex;flex-direction:column;gap:.4rem}
+  label{font-size:.875rem;font-weight:500;color:var(--bone)}
+  input[type=email]{width:100%;border:1px solid rgba(251,249,246,.22);background:var(--ink-2);color:var(--bone);border-radius:.875rem;padding:.9375rem 1.0625rem;font-size:1rem;font-family:inherit}
+  input[type=email]::placeholder{color:rgba(201,193,210,.62)}
+  input[type=email]:focus{outline:2px solid var(--gold);outline-offset:0;border-color:transparent}
+  .consent{display:flex;gap:.625rem;align-items:flex-start;margin-top:1.125rem;font-size:.875rem;color:var(--bone-sub)}
+  .consent label{color:var(--bone-sub);font-weight:400}
+  .consent input{margin-top:.25rem;width:1rem;height:1rem;flex:none;accent-color:var(--gold)}
+  form .btn{width:100%;margin-top:1.25rem}
+  form .btn:hover{background:var(--bone);color:var(--ink)}
+  .micro{margin-top:1.125rem;font-size:.8125rem;color:var(--bone-sub);text-align:center}
+  .micro a{color:var(--bone-sub)}
+  .micro a:hover{color:var(--bone)}
+  .formerr{display:none;margin-top:1rem;font-size:.875rem;color:var(--rose-lift);text-align:center}
+  .confirm{display:none;margin:2.25rem auto 0;max-width:27.5rem}
+  .confirm h3{font-family:'Bricolage';font-weight:600;font-size:1.375rem;line-height:1.35;color:var(--bone)}
+  .confirm h3 .glow{color:var(--gold)}
+  .confirm p{margin:.75rem auto 0;font-size:.9375rem;color:var(--bone-sub)}
   .done .confirm{display:block}
   .done form,.done .listmicro{display:none}
+  .doorframe :focus-visible{outline-color:var(--gold)}
 
   /* footer */
-  .foot{padding:44px 0 84px;color:var(--muted);font-size:14px}
-  .foot .mark{font-family:'Bricolage';font-weight:800;font-size:18px;color:var(--text)}
-  .foot .mark .dot{color:var(--gold)}
-  .foot p{font-size:13.5px;color:var(--muted);margin-top:10px}
-  .foot a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
-  .foot a:hover{color:var(--text)}
+  .foot{border-top:1px solid var(--line);margin-top:1rem;padding:2.5rem 0 4.5rem;color:var(--eyebrow);font-size:.875rem}
+  .foot .mark{font-family:'Bricolage';font-weight:800;font-size:1.125rem;color:var(--ink)}
+  .foot .mark .dot{color:var(--goldtext)}
+  .foot .tail{font-family:'Inter';font-weight:400;font-size:.875rem;color:var(--eyebrow)}
+  .foot p{font-size:.84375rem;color:var(--eyebrow);margin-top:.625rem}
+  .foot a{color:var(--eyebrow);text-decoration:underline;text-underline-offset:3px}
+  .foot a:hover{color:var(--ink)}
 
-  /* motion — ease-out, slow, like breath */
+  /* ─── reveals — breath, not spectacle ─── */
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .9s ease-out,transform .9s ease-out}
   .reveal.in{opacity:1;transform:none}
+  .reveal .rv{opacity:0;transform:translateY(16px);transition:opacity .8s ease-out,transform .8s ease-out}
+  .reveal.in .rv{opacity:1;transform:none}
+  .reveal.in .rv:nth-child(2){transition-delay:.09s}
+  .reveal.in .rv:nth-child(3){transition-delay:.18s}
+  .reveal.in .rv:nth-child(4){transition-delay:.27s}
+
+  /* ─── responsive ─── */
+  @media(max-width:900px){
+    .intents{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:720px){
+    .beats{grid-template-columns:1fr}
+    .gift .panels{grid-template-columns:1fr}
+    .callig-hero{position:relative;right:auto;top:auto;width:min(56vw,17rem);margin:3.25rem clamp(1.25rem,4vw,3rem) 0 auto;opacity:.65}
+    .topbar .wrap{height:4.5rem}
+  }
+  @media(max-width:480px){
+    .intents{grid-template-columns:1fr}
+    .btnrow .btn{width:100%}
+    .btnrow .btn.ghostlink{width:auto}
+  }
+
+  /* generated: calligraphy pen strokes */
+  @keyframes pen-awba{
+    0%{stroke-dashoffset:3139;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    24.9%{stroke-dashoffset:2067;animation-timing-function:linear}
+    33.9%{stroke-dashoffset:2067;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    45.0%{stroke-dashoffset:1592;animation-timing-function:linear}
+    54.0%{stroke-dashoffset:1592;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    60.4%{stroke-dashoffset:1314;animation-timing-function:linear}
+    69.4%{stroke-dashoffset:1314;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    100%{stroke-dashoffset:0}
+  }
+  @keyframes pen-niyyah{
+    0%{stroke-dashoffset:2386;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    31.3%{stroke-dashoffset:1474;animation-timing-function:linear}
+    40.3%{stroke-dashoffset:1474;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    51.5%{stroke-dashoffset:1150;animation-timing-function:linear}
+    60.5%{stroke-dashoffset:1150;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    100%{stroke-dashoffset:0}
+  }
+  @keyframes pen-dhikr{
+    0%{stroke-dashoffset:2647;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    36.3%{stroke-dashoffset:1476;animation-timing-function:linear}
+    45.3%{stroke-dashoffset:1476;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    56.6%{stroke-dashoffset:1110;animation-timing-function:linear}
+    65.6%{stroke-dashoffset:1110;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    100%{stroke-dashoffset:0}
+  }
+  @keyframes pen-rujue{
+    0%{stroke-dashoffset:3284;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    19.6%{stroke-dashoffset:2403;animation-timing-function:linear}
+    28.6%{stroke-dashoffset:2403;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    43.1%{stroke-dashoffset:1749;animation-timing-function:linear}
+    52.1%{stroke-dashoffset:1749;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    62.9%{stroke-dashoffset:1265;animation-timing-function:linear}
+    71.9%{stroke-dashoffset:1265;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    100%{stroke-dashoffset:0}
+  }
+  @keyframes pen-qasd{
+    0%{stroke-dashoffset:3051;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    27.2%{stroke-dashoffset:2039;animation-timing-function:linear}
+    36.2%{stroke-dashoffset:2039;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    60.5%{stroke-dashoffset:1133;animation-timing-function:linear}
+    69.5%{stroke-dashoffset:1133;animation-timing-function:cubic-bezier(.5,.05,.35,.95)}
+    100%{stroke-dashoffset:0}
+  }
+
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .reveal{opacity:1;transform:none;transition:none}
-    .lampglow{animation:none}
-    .btn{transition:none}
+    .reveal,.reveal .rv{opacity:1;transform:none;transition:none}
+    .orb,.glowspot{animation:none}
+    .btn,.slimnav,.intent{transition:none}
+    .ring path{stroke-dashoffset:0!important;animation:none!important}
+    .callig .pen{animation:none!important;stroke-dashoffset:0!important}
+    .callig figcaption{opacity:1;transition:none}
+    .callig{transition:none}
   }
 </style>
-<noscript><style>.reveal{opacity:1;transform:none}.lampglow{animation:none}</style></noscript>
+<noscript><style>
+  .reveal,.reveal .rv{opacity:1;transform:none}
+  .callig .pen{stroke-dashoffset:0!important}
+  .callig figcaption{opacity:1}
+  .orb,.glowspot{animation:none}
+</style></noscript>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<div class="bar"><div class="wrap">
-  <a class="brandmini" href="#top" aria-label="Awba — home">
-    <svg viewBox="0 0 200 200" aria-hidden="true"><g stroke="#F2C879" stroke-width="14" stroke-linecap="round" fill="none"><path d="M109.5,22.6 A78,78 0 0 1 177.4,90.5"/><path d="M177.4,109.5 A78,78 0 0 1 109.5,177.4"/><path d="M90.5,177.4 A78,78 0 0 1 22.6,109.5"/><path d="M22.6,90.5 A78,78 0 0 1 90.5,22.6"/></g><circle cx="100" cy="100" r="30" fill="#F2C879"/></svg>
-    Awba<span class="dot">.</span>
-  </a>
-  <button class="toggle" id="tt" aria-pressed="false">◐ Night</button>
-</div></div>
-
-<header class="hero" id="top"><div class="wrap">
-  <div class="say">Awba (<span class="arabic">أوبة</span>) · say <b>AW-ba</b> · “the return”</div>
-  <div class="wordmark">Awba<span class="stop">.</span></div>
-  <h1 class="tagline">The reason, not the reminder.</h1>
-  <p class="sub">A companion that tells you <em>why</em> to pray, not just when — tied to the hadith, the story, and the Name of Allah behind it.</p>
-  <div class="btnrow">
-    <a class="btn primary" href="#waitlist">Get early access</a>
-    <a class="btn ghost" href="#how">See how it works →</a>
+<div class="slimnav" id="slimnav" aria-hidden="true">
+  <div class="wrap">
+    <a class="brand" href="#top" tabindex="-1"><svg class="ring" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><g stroke="#F2C879" stroke-width="14" stroke-linecap="round" fill="none"><path pathLength="100" d="M109.5,22.6 A78,78 0 0 1 177.4,90.5"/><path pathLength="100" d="M177.4,109.5 A78,78 0 0 1 109.5,177.4"/><path pathLength="100" d="M90.5,177.4 A78,78 0 0 1 22.6,109.5"/><path pathLength="100" d="M22.6,90.5 A78,78 0 0 1 90.5,22.6"/></g><circle cx="100" cy="100" r="30" fill="#F2C879"/></svg><span>Awba<span class="dot">.</span></span></a>
+    <a class="btn" href="#waitlist" tabindex="-1">Join the waitlist</a>
   </div>
-</div></header>
+</div>
 
-<section class="reveal"><div class="wrap">
-  <div class="kick">The reason</div>
-  <h2>Every other app reminds you it’s time.</h2>
-  <p class="lead">Awba tells you why it’s worth it.</p>
-  <div class="mech"><p>Knowledge funds the action; the feeling follows; faith grows from both.</p></div>
-</div></section>
-
-<section id="how" class="reveal"><div class="wrap">
-  <div class="kick">How it works</div>
-  <div class="grid3">
-    <div class="card beat">
-      <span class="n">01</span>
-      <h3>Understand the why</h3>
-      <p>The reason behind each practice, in five calm minutes, not a two-hour lecture.</p>
-    </div>
-    <div class="card beat">
-      <span class="n">02</span>
-      <h3>Return without shame</h3>
-      <p>We reward the return, never mark the absence. Iman has seasons.</p>
-    </div>
-    <div class="card beat">
-      <span class="n">03</span>
-      <h3>Grow quietly</h3>
-      <p>No streaks, no scores, no leaderboards. Calm is the point.</p>
+<header class="hero" id="top">
+  <div class="topbar">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="Awba — home"><svg class="ring" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><g stroke="#F2C879" stroke-width="14" stroke-linecap="round" fill="none"><path pathLength="100" d="M109.5,22.6 A78,78 0 0 1 177.4,90.5"/><path pathLength="100" d="M177.4,109.5 A78,78 0 0 1 109.5,177.4"/><path pathLength="100" d="M90.5,177.4 A78,78 0 0 1 22.6,109.5"/><path pathLength="100" d="M22.6,90.5 A78,78 0 0 1 90.5,22.6"/></g><circle cx="100" cy="100" r="30" fill="#F2C879"/></svg><span>Awba<span class="dot">.</span></span></a>
+      <a class="btn" href="#waitlist">Join the waitlist</a>
     </div>
   </div>
-</div></section>
+  <div class="orb" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="say">Awba (<span class="arabic">أوبة</span>) · say <b>AW-ba</b> · “the return”</p>
+    <h1>The reason, not the reminder.</h1>
+    <p class="sub">A companion that tells you <em>why</em> to pray, not just when — tied to the hadith, the story, and the Name of Allah behind it.</p>
+    <div class="btnrow">
+      <a class="btn" href="#waitlist">Join the waitlist</a>
+      <a class="btn ghostlink" href="#how">See how it works →</a>
+    </div>
+  </div>
+  <figure class="callig callig-hero" role="img" aria-label="أوبة (awba) — a returning">
+    <svg viewBox="-7 -965 1553 1245" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+      <defs><mask id="pm-awba" maskUnits="userSpaceOnUse" x="-1522" y="-2480" width="4582" height="4274">
+        <path class="pen" d="M2339 -342 L-800 -342" fill="none" stroke="#fff" stroke-width="1514" stroke-linecap="round" stroke-dasharray="3139" stroke-dashoffset="3139" style="animation-name:pen-awba"/>
+      </mask></defs>
+      <path d="M487.0 0.0Q396.0 -1.0 355.5 -41.0Q315.0 -81.0 315.0 -159.0V-167.0H309.0Q294.0 -104.0 263.5 -78.5Q233.0 -53.0 176.0 -53.0Q106.0 -53.0 69.5 -90.5Q33.0 -128.0 33.0 -197.0Q33.0 -272.0 76.5 -321.0Q120.0 -370.0 201.0 -412.0L310.0 -468.0V-522.0H415.0V-190.0Q415.0 -157.0 430.5 -144.0Q446.0 -131.0 483.0 -131.0H514.0V-27.0ZM204.0 -184.0Q263.0 -184.0 286.5 -197.0Q310.0 -210.0 310.0 -243.0V-371.0L228.0 -330.0Q174.0 -304.0 149.0 -284.0Q124.0 -264.0 124.0 -234.0Q124.0 -207.0 141.5 -195.5Q159.0 -184.0 204.0 -184.0ZM355.0 -603.0Q331.0 -603.0 315.5 -617.5Q300.0 -632.0 300.0 -664.0Q300.0 -697.0 315.5 -711.5Q331.0 -726.0 355.0 -726.0H372.0Q396.0 -726.0 411.5 -711.5Q427.0 -697.0 427.0 -664.0Q427.0 -632.0 411.5 -617.5Q396.0 -603.0 372.0 -603.0ZM206.0 -603.0Q182.0 -603.0 166.5 -617.5Q151.0 -632.0 151.0 -664.0Q151.0 -697.0 166.5 -711.5Q182.0 -726.0 206.0 -726.0H223.0Q247.0 -726.0 262.5 -711.5Q278.0 -697.0 278.0 -664.0Q278.0 -632.0 262.5 -617.5Q247.0 -603.0 223.0 -603.0Z M487.0 -104.0 514.0 -131.0H539.0Q609.0 -131.0 635.5 -145.5Q662.0 -160.0 662.0 -198.0Q662.0 -214.0 659.5 -238.5Q657.0 -263.0 650.0 -304.0L634.0 -394.0L732.0 -410.0L746.0 -320.0Q751.0 -286.0 754.0 -253.5Q757.0 -221.0 757.0 -198.0Q757.0 -96.0 705.0 -48.0Q653.0 0.0 539.0 0.0H487.0ZM655.0 210.0Q631.0 210.0 615.5 195.5Q600.0 181.0 600.0 149.0Q600.0 116.0 615.5 101.5Q631.0 87.0 655.0 87.0H672.0Q696.0 87.0 711.5 101.5Q727.0 116.0 727.0 149.0Q727.0 181.0 711.5 195.5Q696.0 210.0 672.0 210.0Z M823.0 109.0H889.0Q1017.0 109.0 1077.0 61.5Q1137.0 14.0 1137.0 -65.0V-90.0H1131.0Q1117.0 -44.0 1083.5 -21.5Q1050.0 1.0 1001.0 1.0Q920.0 1.0 875.0 -45.0Q830.0 -91.0 830.0 -174.0Q830.0 -224.0 845.0 -267.0Q860.0 -310.0 886.5 -342.0Q913.0 -374.0 949.5 -392.0Q986.0 -410.0 1029.0 -410.0Q1123.0 -410.0 1176.0 -332.0Q1229.0 -254.0 1229.0 -115.0Q1229.0 -31.0 1208.0 34.5Q1187.0 100.0 1145.0 146.0Q1103.0 192.0 1040.5 216.0Q978.0 240.0 896.0 240.0H823.0ZM1029.0 -131.0Q1070.0 -131.0 1095.5 -135.5Q1121.0 -140.0 1136.0 -151.0Q1134.0 -209.0 1101.0 -244.0Q1068.0 -279.0 1018.0 -279.0Q975.0 -279.0 948.5 -254.0Q922.0 -229.0 922.0 -191.0Q922.0 -159.0 944.0 -145.0Q966.0 -131.0 1008.0 -131.0Z M1338.0 -618.0H1445.0V0.0H1338.0ZM1278.0 -773.0H1318.0L1319.0 -777.0Q1300.0 -799.0 1300.0 -830.0Q1300.0 -871.0 1329.5 -898.0Q1359.0 -925.0 1404.0 -925.0Q1431.0 -925.0 1457.5 -913.0Q1484.0 -901.0 1501.0 -881.0L1456.0 -820.0Q1433.0 -844.0 1404.0 -844.0Q1387.0 -844.0 1376.0 -835.5Q1365.0 -827.0 1365.0 -815.0Q1365.0 -779.0 1435.0 -779.0H1506.0V-698.0H1278.0Z" fill="currentColor" mask="url(#pm-awba)"/>
+    </svg>
+    <figcaption>awba — a returning</figcaption>
+  </figure>
+</header>
 
-<section class="gift reveal"><div class="wrap">
-  <div class="kick">Gifting</div>
-  <h2>Give one. <span class="keep">Keep one.</span></h2>
-  <p class="lead">Early access you can gift — because helping someone return is sadaqah jariyah, built into the model, not bolted on.</p>
-</div></section>
+<main id="main">
 
-<section class="waitlist reveal" id="waitlist"><div class="wrap">
-  <div class="lampcard" id="lampcard">
-    <div class="lampglow" aria-hidden="true"></div>
-    <svg class="loop" viewBox="0 0 200 200" aria-hidden="true"><g stroke="#F2C879" stroke-width="12" stroke-linecap="round" fill="none"><path d="M109.5,22.6 A78,78 0 0 1 177.4,90.5"/><path d="M177.4,109.5 A78,78 0 0 1 109.5,177.4"/><path d="M90.5,177.4 A78,78 0 0 1 22.6,109.5"/><path d="M22.6,90.5 A78,78 0 0 1 90.5,22.6"/></g><circle cx="100" cy="100" r="30" fill="#F2C879"/></svg>
-    <h2>Be there when the door opens.</h2>
-    <p>Leave an email and we’ll write to you once, when early access opens.</p>
+<div class="seam"><figure class="callig" role="img" aria-label="نية (niyyah) — intention">
+    <svg viewBox="-7 -766 1128 1016" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+      <defs><mask id="pm-niyyah" maskUnits="userSpaceOnUse" x="-1224" y="-1983" width="3562" height="3450">
+        <path class="pen" d="M1750 -258 L-636 -258" fill="none" stroke="#fff" stroke-width="1217" stroke-linecap="round" stroke-dasharray="2386" stroke-dashoffset="2386" style="animation-name:pen-niyyah"/>
+      </mask></defs>
+      <path d="M487.0 0.0Q396.0 -1.0 355.5 -41.0Q315.0 -81.0 315.0 -159.0V-167.0H309.0Q294.0 -104.0 263.5 -78.5Q233.0 -53.0 176.0 -53.0Q106.0 -53.0 69.5 -90.5Q33.0 -128.0 33.0 -197.0Q33.0 -272.0 76.5 -321.0Q120.0 -370.0 201.0 -412.0L310.0 -468.0V-522.0H415.0V-190.0Q415.0 -157.0 430.5 -144.0Q446.0 -131.0 483.0 -131.0H514.0V-27.0ZM204.0 -184.0Q263.0 -184.0 286.5 -197.0Q310.0 -210.0 310.0 -243.0V-371.0L228.0 -330.0Q174.0 -304.0 149.0 -284.0Q124.0 -264.0 124.0 -234.0Q124.0 -207.0 141.5 -195.5Q159.0 -184.0 204.0 -184.0ZM355.0 -603.0Q331.0 -603.0 315.5 -617.5Q300.0 -632.0 300.0 -664.0Q300.0 -697.0 315.5 -711.5Q331.0 -726.0 355.0 -726.0H372.0Q396.0 -726.0 411.5 -711.5Q427.0 -697.0 427.0 -664.0Q427.0 -632.0 411.5 -617.5Q396.0 -603.0 372.0 -603.0ZM206.0 -603.0Q182.0 -603.0 166.5 -617.5Q151.0 -632.0 151.0 -664.0Q151.0 -697.0 166.5 -711.5Q182.0 -726.0 206.0 -726.0H223.0Q247.0 -726.0 262.5 -711.5Q278.0 -697.0 278.0 -664.0Q278.0 -632.0 262.5 -617.5Q247.0 -603.0 223.0 -603.0Z M487.0 -104.0 514.0 -131.0H545.0Q627.0 -131.0 627.0 -206.0V-353.0H725.0V-206.0Q725.0 -131.0 800.0 -131.0H838.0V-27.0L811.0 0.0Q734.0 0.0 693.0 -30.0Q652.0 -60.0 638.0 -124.0H633.0Q620.0 -58.0 586.5 -29.0Q553.0 0.0 487.0 0.0ZM742.0 210.0Q718.0 210.0 702.5 195.5Q687.0 181.0 687.0 149.0Q687.0 116.0 702.5 101.5Q718.0 87.0 742.0 87.0H759.0Q783.0 87.0 798.5 101.5Q814.0 116.0 814.0 149.0Q814.0 181.0 798.5 195.5Q783.0 210.0 759.0 210.0ZM593.0 210.0Q569.0 210.0 553.5 195.5Q538.0 181.0 538.0 149.0Q538.0 116.0 553.5 101.5Q569.0 87.0 593.0 87.0H610.0Q634.0 87.0 649.5 101.5Q665.0 116.0 665.0 149.0Q665.0 181.0 649.5 195.5Q634.0 210.0 610.0 210.0Z M811.0 -104.0 838.0 -131.0H863.0Q933.0 -131.0 959.5 -145.5Q986.0 -160.0 986.0 -198.0Q986.0 -214.0 983.5 -238.5Q981.0 -263.0 974.0 -304.0L958.0 -394.0L1056.0 -410.0L1070.0 -320.0Q1075.0 -286.0 1078.0 -253.5Q1081.0 -221.0 1081.0 -198.0Q1081.0 -96.0 1029.0 -48.0Q977.0 0.0 863.0 0.0H811.0ZM984.0 -502.0Q960.0 -502.0 944.5 -516.5Q929.0 -531.0 929.0 -563.0Q929.0 -596.0 944.5 -610.5Q960.0 -625.0 984.0 -625.0H1001.0Q1025.0 -625.0 1040.5 -610.5Q1056.0 -596.0 1056.0 -563.0Q1056.0 -531.0 1040.5 -516.5Q1025.0 -502.0 1001.0 -502.0Z" fill="currentColor" mask="url(#pm-niyyah)"/>
+    </svg>
+    <figcaption>niyyah — intention</figcaption>
+  </figure></div>
 
-    <!--
-      MAILERLITE — replace the action below with the real MailerLite form action
-      (Dashboard → Forms → Embedded form → the <form action="…"> URL, e.g.
-      https://assets.mailerlite.com/jsonp/ACCOUNT_ID/forms/FORM_ID/subscribe).
-      Double opt-in must be ON for the form's group in MailerLite settings —
-      MailerLite then sends the confirmation email and stores the consent record.
-    -->
-    <form id="wl" action="MAILERLITE_FORM_ACTION" method="post" novalidate>
-      <div class="field">
-        <label for="email">Email</label>
-        <input id="email" type="email" name="fields[email]" autocomplete="email" required placeholder="you@example.com">
+<section class="reason reveal" id="how">
+  <div class="wrap">
+    <div class="kick rv">The reason</div>
+    <h2 class="rv">Every other app reminds you it’s time.</h2>
+    <p class="lead rv">Awba tells you why it’s worth it.</p>
+    <div class="mech rv">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="color:var(--goldtext)"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><rect x="15" y="15" width="34" height="34"/><rect x="15" y="15" width="34" height="34" transform="rotate(45 32 32)"/></g><circle cx="32" cy="32" r="3.4" fill="currentColor"/></svg>
+      <p>Knowledge funds the action; the feeling follows; faith grows from both.</p>
+    </div>
+    <div class="kick howkick rv">How it works</div>
+    <div class="beats">
+      <div class="beat rv" style="--acc:var(--tint-lavender)">
+        <div class="art"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="color:var(--lavender)"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 C17 10 28 10 32 16 C36 10 47 10 56 16 V48 C47 42 36 42 32 48 C28 42 17 42 8 48 Z"/><path d="M32 16 V48"/></g></svg></div>
+        <div class="body">
+          <span class="n">01</span>
+          <h3>Understand the why</h3>
+          <p>The reason behind each practice, in five calm minutes, not a two-hour lecture.</p>
+        </div>
       </div>
-      <div class="consent">
-        <input id="consent" type="checkbox" required>
-        <label for="consent">Email me about Awba’s early access.</label>
+      <div class="beat rv" style="--acc:var(--tint-gold)">
+        <div class="art"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="color:var(--goldtext)"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 54 V28 C14 16 21 9 32 6 C43 9 50 16 50 28 V54"/><path d="M8 54 H56"/></g></svg></div>
+        <div class="body">
+          <span class="n">02</span>
+          <h3>Return without shame</h3>
+          <p>We reward the return, never mark the absence. Iman has seasons.</p>
+        </div>
       </div>
-      <button class="btn primary" type="submit" id="wlbtn">Get early access</button>
-      <p class="formerr" id="wlerr" role="alert">That didn’t go through. Check the address and try once more.</p>
-    </form>
-    <p class="micro listmicro">We’ll only email you about Awba’s launch. No spam, unsubscribe anytime. Read our <a href="privacy.html">privacy notice</a>.</p>
-
-    <div class="confirm" role="status" aria-live="polite">
-      <h3>One email is on its way to you. <span class="glow">Confirm it, and you’re in.</span></h3>
-      <p>That’s the whole thing — we won’t write again until the door opens.</p>
+      <div class="beat rv" style="--acc:var(--tint-orchid)">
+        <div class="art"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="color:var(--orchid)"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" d="M42 8 A26 26 0 1 0 42 56 A20.5 20.5 0 1 1 42 8 Z"/></svg></div>
+        <div class="body">
+          <span class="n">03</span>
+          <h3>Grow quietly</h3>
+          <p>No streaks, no scores, no leaderboards. Calm is the point.</p>
+        </div>
+      </div>
     </div>
   </div>
-</div></section>
+</section>
 
-<footer class="foot"><div class="wrap">
-  <div class="mark">Awba<span class="dot">.</span> <span style="font-family:'Inter';font-weight:400;font-size:14px;color:var(--muted)">· the return · awba.app</span></div>
-  <p>Made for young UK Muslims, English-first. · <a href="privacy.html">Privacy</a></p>
-</div></footer>
+<div class="seam"><figure class="callig" role="img" aria-label="رجوع (rujūʿ) — return">
+    <svg viewBox="-1 -672 2026 1016" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+      <defs><mask id="pm-rujue" maskUnits="userSpaceOnUse" x="-1218" y="-1889" width="4460" height="3450">
+        <path class="pen" d="M2654 -164 L-630 -164" fill="none" stroke="#fff" stroke-width="1217" stroke-linecap="round" stroke-dasharray="3284" stroke-dashoffset="3284" style="animation-name:pen-rujue"/>
+      </mask></defs>
+      <path d="M341.0 304.0Q199.0 304.0 119.0 236.5Q39.0 169.0 39.0 45.0Q39.0 -35.0 86.0 -99.0Q133.0 -163.0 230.0 -208.0V-213.0Q110.0 -286.0 110.0 -404.0Q110.0 -450.0 125.5 -491.0Q141.0 -532.0 170.0 -563.5Q199.0 -595.0 240.0 -613.5Q281.0 -632.0 332.0 -632.0Q401.0 -632.0 450.0 -601.5Q499.0 -571.0 530.0 -519.0L440.0 -435.0Q417.0 -470.0 388.0 -485.5Q359.0 -501.0 317.0 -501.0Q263.0 -501.0 232.0 -475.5Q201.0 -450.0 201.0 -403.0Q201.0 -351.0 241.0 -326.0Q281.0 -301.0 355.0 -301.0Q405.0 -301.0 473.0 -313.0L554.0 -327.0L574.0 -207.0L443.0 -183.0Q285.0 -155.0 212.0 -107.0Q139.0 -59.0 139.0 19.0V33.0Q139.0 102.0 192.5 137.0Q246.0 172.0 341.0 172.0Q410.0 172.0 476.0 146.5Q542.0 121.0 593.0 73.0L662.0 176.0Q599.0 239.0 517.0 271.5Q435.0 304.0 341.0 304.0Z M666.0 109.0H727.0Q828.0 109.0 886.5 80.0Q945.0 51.0 966.0 0.0H847.0Q766.0 0.0 721.0 -46.0Q676.0 -92.0 676.0 -174.0Q676.0 -224.0 691.0 -267.0Q706.0 -310.0 732.5 -342.0Q759.0 -374.0 795.5 -392.0Q832.0 -410.0 874.0 -410.0Q963.0 -410.0 1015.0 -336.5Q1067.0 -263.0 1070.0 -131.0H1119.0V-27.0L1092.0 0.0H1058.0Q1032.0 115.0 951.0 177.5Q870.0 240.0 734.0 240.0H666.0ZM767.0 -191.0Q767.0 -159.0 789.5 -145.0Q812.0 -131.0 854.0 -131.0H978.0V-142.0Q978.0 -205.0 946.0 -242.0Q914.0 -279.0 863.0 -279.0Q821.0 -279.0 794.0 -254.0Q767.0 -229.0 767.0 -191.0Z M1092.0 -104.0 1119.0 -131.0H1178.0Q1230.0 -131.0 1273.0 -133.0Q1316.0 -135.0 1355.0 -141.5Q1394.0 -148.0 1433.5 -161.0Q1473.0 -174.0 1520.0 -197.0L1573.0 -223.0V-228.0L1417.0 -261.0L1249.0 -303.0V-224.0H1148.0V-301.0Q1148.0 -423.0 1260.0 -423.0Q1267.0 -423.0 1275.0 -422.5Q1283.0 -422.0 1293.5 -420.0Q1304.0 -418.0 1319.0 -414.5Q1334.0 -411.0 1355.0 -405.0L1563.0 -351.0Q1608.0 -340.0 1651.5 -334.0Q1695.0 -328.0 1734.0 -328.0H1753.0V-196.0H1674.0L1568.0 -127.0Q1503.0 -85.0 1452.0 -59.5Q1401.0 -34.0 1355.5 -21.0Q1310.0 -8.0 1267.5 -4.0Q1225.0 0.0 1178.0 0.0H1092.0ZM1429.0 210.0Q1405.0 210.0 1389.5 195.5Q1374.0 181.0 1374.0 149.0Q1374.0 116.0 1389.5 101.5Q1405.0 87.0 1429.0 87.0H1446.0Q1470.0 87.0 1485.5 101.5Q1501.0 116.0 1501.0 149.0Q1501.0 181.0 1485.5 195.5Q1470.0 210.0 1446.0 210.0Z M1673.0 109.0H1712.0Q1808.0 109.0 1849.0 65.5Q1890.0 22.0 1889.0 -61.0Q1889.0 -86.0 1886.0 -113.5Q1883.0 -141.0 1878.0 -170.0L1857.0 -297.0L1954.0 -313.0L1969.0 -225.0Q1977.0 -177.0 1981.0 -136.0Q1985.0 -95.0 1985.0 -64.0Q1985.0 3.0 1969.0 58.5Q1953.0 114.0 1919.5 154.5Q1886.0 195.0 1834.5 217.5Q1783.0 240.0 1713.0 240.0H1673.0Z" fill="currentColor" mask="url(#pm-rujue)"/>
+    </svg>
+    <figcaption>rujūʿ — return</figcaption>
+  </figure></div>
+
+<section class="segment block reveal">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="rv">What are you returning to?</h2>
+      <p class="rv">However long it’s been, there’s a way back — Awba starts wherever you are.</p>
+    </div>
+    <div class="intents" role="group" aria-label="What are you returning to?">
+      <button type="button" class="intent rv" aria-pressed="false" style="--acc:var(--rose)">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 54 V28 C14 16 21 9 32 6 C43 9 50 16 50 28 V54"/><path d="M8 54 H56"/></g><circle cx="32" cy="28" r="3.2" fill="currentColor"/></svg>
+        <span class="t">Prayer</span>
+        <span class="d">Start with one salah, kept.</span>
+      </button>
+      <button type="button" class="intent rv" aria-pressed="false" style="--acc:var(--lavender)">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"><rect x="16" y="16" width="32" height="32"/><rect x="16" y="16" width="32" height="32" transform="rotate(45 32 32)"/></g><circle cx="32" cy="32" r="3.2" fill="currentColor"/></svg>
+        <span class="t">The Qur’an</span>
+        <span class="d">A page that finally speaks to you.</span>
+      </button>
+      <button type="button" class="intent rv" aria-pressed="false" style="--acc:var(--orchid)">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="21.1" cy="15.0" r="3.1" fill="currentColor"/>
+<circle cx="15.6" cy="23.6" r="3.1" fill="currentColor"/>
+<circle cx="16.0" cy="33.8" r="3.1" fill="currentColor"/>
+<circle cx="22.2" cy="41.9" r="3.1" fill="currentColor"/>
+<circle cx="32.0" cy="45.0" r="3.1" fill="currentColor"/>
+<circle cx="41.8" cy="41.9" r="3.1" fill="currentColor"/>
+<circle cx="48.0" cy="33.8" r="3.1" fill="currentColor"/>
+<circle cx="48.4" cy="23.6" r="3.1" fill="currentColor"/>
+<circle cx="42.9" cy="15.0" r="3.1" fill="currentColor"/><path d="M32 45 V52" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="32" cy="56" r="3.6" fill="currentColor"/></svg>
+        <span class="t">Dhikr</span>
+        <span class="d">Small words that weigh heavy.</span>
+      </button>
+      <button type="button" class="intent rv" aria-pressed="false" style="--acc:var(--goldtext)">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M35 8 A24.5 24.5 0 0 1 56 29"/><path d="M56 35 A24.5 24.5 0 0 1 35 56"/><path d="M29 56 A24.5 24.5 0 0 1 8 35"/><path d="M8 29 A24.5 24.5 0 0 1 29 8"/></g><circle cx="32" cy="32" r="8.5" fill="currentColor"/></svg>
+        <span class="t">Yourself</span>
+        <span class="d">The heart you’ve been away from.</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="seam"><figure class="callig" role="img" aria-label="قصد (qaṣd) — purpose">
+    <svg viewBox="-10 -846 1978 886" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+      <defs><mask id="pm-qasd" maskUnits="userSpaceOnUse" x="-1058" y="-1894" width="4074" height="2982">
+        <path class="pen" d="M2504 -403 L-546 -403" fill="none" stroke="#fff" stroke-width="1048" stroke-linecap="round" stroke-dasharray="3051" stroke-dashoffset="3051" style="animation-name:pen-qasd"/>
+      </mask></defs>
+      <path d="M156.0 0.0Q96.0 0.0 63.0 -31.5Q30.0 -63.0 30.0 -129.0V-199.0H132.0V-131.0H268.0Q312.0 -131.0 329.5 -140.5Q347.0 -150.0 347.0 -174.0Q347.0 -185.0 342.5 -201.0Q338.0 -217.0 330.0 -237.0L240.0 -493.0L351.0 -533.0L452.0 -246.0Q464.0 -211.0 475.5 -189.0Q487.0 -167.0 499.0 -154.0Q511.0 -141.0 525.5 -136.0Q540.0 -131.0 558.0 -131.0H587.0V-27.0L560.0 0.0Q522.0 0.0 494.0 -6.0Q466.0 -12.0 444.0 -26.0Q422.0 -40.0 404.5 -63.5Q387.0 -87.0 371.0 -123.0L367.0 -122.0Q356.0 -56.0 325.5 -28.0Q295.0 0.0 231.0 0.0Z M1466.0 0.0Q1430.0 0.0 1400.5 -8.0Q1371.0 -16.0 1345.0 -37.0Q1284.0 0.0 1173.0 0.0H884.0Q807.0 0.0 766.0 -30.0Q725.0 -60.0 711.0 -124.0H706.0Q693.0 -58.0 659.5 -29.0Q626.0 0.0 560.0 0.0V-104.0L587.0 -131.0H618.0Q700.0 -131.0 700.0 -206.0V-273.0H798.0V-206.0Q798.0 -157.0 827.0 -141.0L873.0 -221.0Q909.0 -284.0 946.0 -327.0Q983.0 -370.0 1023.0 -396.5Q1063.0 -423.0 1107.0 -435.0Q1151.0 -447.0 1200.0 -447.0Q1312.0 -447.0 1369.5 -386.0Q1427.0 -325.0 1427.0 -216.0Q1427.0 -193.0 1424.5 -172.5Q1422.0 -152.0 1417.0 -135.0Q1429.0 -133.0 1441.0 -132.0Q1453.0 -131.0 1466.0 -131.0H1493.0V-27.0ZM1173.0 -131.0Q1262.0 -131.0 1299.0 -149.5Q1336.0 -168.0 1336.0 -219.0Q1336.0 -268.0 1307.0 -292.0Q1278.0 -316.0 1215.0 -316.0H1185.0Q1141.0 -316.0 1108.0 -311.5Q1075.0 -307.0 1047.5 -294.5Q1020.0 -282.0 997.0 -259.5Q974.0 -237.0 951.0 -202.0L908.0 -137.0L911.0 -131.0Z M1466.0 -104.0 1493.0 -131.0H1686.0Q1759.0 -131.0 1797.5 -152.5Q1836.0 -174.0 1836.0 -233.0V-275.0H1830.0Q1816.0 -237.0 1782.5 -217.5Q1749.0 -198.0 1700.0 -198.0Q1619.0 -198.0 1574.0 -240.0Q1529.0 -282.0 1529.0 -357.0Q1529.0 -407.0 1544.0 -449.5Q1559.0 -492.0 1585.5 -523.5Q1612.0 -555.0 1648.5 -573.0Q1685.0 -591.0 1728.0 -591.0Q1822.0 -591.0 1875.0 -511.5Q1928.0 -432.0 1928.0 -290.0Q1928.0 -204.0 1913.5 -148.0Q1899.0 -92.0 1869.0 -59.0Q1839.0 -26.0 1793.5 -13.0Q1748.0 0.0 1686.0 0.0H1466.0ZM1728.0 -316.0Q1768.0 -316.0 1793.5 -320.0Q1819.0 -324.0 1835.0 -335.0Q1830.0 -392.0 1798.0 -426.0Q1766.0 -460.0 1717.0 -460.0Q1674.0 -460.0 1647.5 -436.0Q1621.0 -412.0 1621.0 -374.0Q1621.0 -342.0 1643.0 -329.0Q1665.0 -316.0 1707.0 -316.0ZM1793.0 -683.0Q1769.0 -683.0 1753.5 -697.5Q1738.0 -712.0 1738.0 -744.0Q1738.0 -777.0 1753.5 -791.5Q1769.0 -806.0 1793.0 -806.0H1810.0Q1834.0 -806.0 1849.5 -791.5Q1865.0 -777.0 1865.0 -744.0Q1865.0 -712.0 1849.5 -697.5Q1834.0 -683.0 1810.0 -683.0ZM1644.0 -683.0Q1620.0 -683.0 1604.5 -697.5Q1589.0 -712.0 1589.0 -744.0Q1589.0 -777.0 1604.5 -791.5Q1620.0 -806.0 1644.0 -806.0H1661.0Q1685.0 -806.0 1700.5 -791.5Q1716.0 -777.0 1716.0 -744.0Q1716.0 -712.0 1700.5 -697.5Q1685.0 -683.0 1661.0 -683.0Z" fill="currentColor" mask="url(#pm-qasd)"/>
+    </svg>
+    <figcaption>qaṣd — purpose</figcaption>
+  </figure></div>
+
+<section class="gift reveal">
+  <div class="wrap">
+    <div class="kick rv">Gifting</div>
+    <h2 class="rv">Give one. <span class="keep">Keep one.</span></h2>
+    <p class="lead rv">Early access you can gift — because helping someone return is sadaqah jariyah, built into the model, not bolted on.</p>
+    <div class="panels">
+      <div class="panel panel-give rv">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="color:var(--goldtext)"><g fill="none" stroke="currentColor" stroke-width="3"><circle cx="24" cy="32" r="14"/><circle cx="40" cy="32" r="14"/></g></svg>
+        <span class="who">For them</span>
+        <span class="line">An invitation to return, in someone else’s hands.</span>
+      </div>
+      <div class="panel panel-keep rv">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="color:var(--lavender)"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M35 8 A24.5 24.5 0 0 1 56 29"/><path d="M56 35 A24.5 24.5 0 0 1 35 56"/><path d="M29 56 A24.5 24.5 0 0 1 8 35"/><path d="M8 29 A24.5 24.5 0 0 1 29 8"/></g><circle cx="32" cy="32" r="7.5" fill="currentColor"/></svg>
+        <span class="who">For you</span>
+        <span class="line">Your own place at the door, saved.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="waitlist reveal" id="waitlist">
+  <div class="doorblock">
+    <div class="doorframe" id="lampcard">
+      <svg class="arch" viewBox="0 0 320 270" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M18 270 V118 C18 60 76 26 160 16 C244 26 302 60 302 118 V270"/></svg>
+      <div class="glowspot" aria-hidden="true"></div>
+      <figure class="callig" role="img" aria-label="ذكر (dhikr) — remembrance">
+    <svg viewBox="-100 -792 1308 1072" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+      <defs><mask id="pm-dhikr" maskUnits="userSpaceOnUse" x="-1390" y="-2082" width="3887" height="3651">
+        <path class="pen" d="M1877 -256 L-769 -256" fill="none" stroke="#fff" stroke-width="1290" stroke-linecap="round" stroke-dasharray="2647" stroke-dashoffset="2647" style="animation-name:pen-dhikr"/>
+      </mask></defs>
+      <path d="M-60.0 109.0H-21.0Q75.0 109.0 116.0 65.5Q157.0 22.0 156.0 -61.0Q156.0 -86.0 153.0 -113.5Q150.0 -141.0 145.0 -170.0L124.0 -297.0L221.0 -313.0L236.0 -225.0Q245.0 -175.0 248.0 -131.0H341.0V-27.0L314.0 0.0H248.0Q241.0 54.0 221.0 98.0Q201.0 142.0 168.0 173.5Q135.0 205.0 88.0 222.5Q41.0 240.0 -20.0 240.0H-60.0Z M314.0 -104.0 341.0 -131.0H493.0Q531.0 -131.0 548.0 -141.5Q565.0 -152.0 565.0 -177.0Q565.0 -196.0 553.5 -210.0Q542.0 -224.0 510.0 -245.0L351.0 -350.0V-586.0L817.0 -752.0V-632.0L397.0 -482.0V-477.0L510.0 -399.0Q551.0 -372.0 579.0 -348.5Q607.0 -325.0 624.0 -300.5Q641.0 -276.0 648.5 -250.0Q656.0 -224.0 656.0 -193.0Q656.0 -96.0 610.0 -48.0Q564.0 0.0 464.0 0.0H314.0Z M863.0 0.0Q803.0 0.0 770.0 -31.5Q737.0 -63.0 737.0 -129.0V-199.0H839.0V-131.0H995.0Q1037.0 -131.0 1053.5 -147.0Q1070.0 -163.0 1070.0 -191.0Q1070.0 -218.0 1046.0 -250.5Q1022.0 -283.0 965.0 -338.0L864.0 -437.0L955.0 -533.0L1042.0 -443.0Q1077.0 -407.0 1101.0 -375.5Q1125.0 -344.0 1140.0 -314.0Q1155.0 -284.0 1161.5 -253.5Q1168.0 -223.0 1168.0 -189.0Q1168.0 -100.0 1120.5 -50.0Q1073.0 0.0 985.0 0.0ZM935.0 -606.0Q911.0 -606.0 895.5 -620.5Q880.0 -635.0 880.0 -667.0Q880.0 -700.0 895.5 -714.5Q911.0 -729.0 935.0 -729.0H952.0Q976.0 -729.0 991.5 -714.5Q1007.0 -700.0 1007.0 -667.0Q1007.0 -635.0 991.5 -620.5Q976.0 -606.0 952.0 -606.0Z" fill="currentColor" mask="url(#pm-dhikr)"/>
+    </svg>
+    <figcaption>dhikr — remembrance</figcaption>
+  </figure>
+      <h2>Be there when the door opens.</h2>
+      <p>Leave an email and we’ll write to you once, when early access opens.</p>
+
+      <!--
+        MAILERLITE — replace the action below with the real MailerLite form action
+        (Dashboard → Forms → Embedded form → the <form action="…"> URL, e.g.
+        https://assets.mailerlite.com/jsonp/ACCOUNT_ID/forms/FORM_ID/subscribe).
+        Double opt-in must be ON for the form's group in MailerLite settings —
+        MailerLite then sends the confirmation email and stores the consent record.
+      -->
+      <form id="wl" action="MAILERLITE_FORM_ACTION" method="post" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" name="fields[email]" autocomplete="email" required placeholder="you@example.com">
+        </div>
+        <div class="consent">
+          <input id="consent" type="checkbox" required>
+          <label for="consent">Email me about Awba’s early access.</label>
+        </div>
+        <button class="btn primary" type="submit" id="wlbtn">Get early access</button>
+        <p class="formerr" id="wlerr" role="alert">That didn’t go through. Check the address and try once more.</p>
+      </form>
+      <p class="micro listmicro">We’ll only email you about Awba’s launch. No spam, unsubscribe anytime. Read our <a href="privacy.html">privacy notice</a>.</p>
+
+      <div class="confirm" role="status" aria-live="polite">
+        <h3>One email is on its way to you. <span class="glow">Confirm it, and you’re in.</span></h3>
+        <p>That’s the whole thing — we won’t write again until the door opens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="mark">Awba<span class="dot">.</span> <span class="tail">· the return · awba.app</span></div>
+    <p>Made for young UK Muslims, English-first. · <a href="privacy.html">Privacy</a></p>
+  </div>
+</footer>
 
 <script>
-  // theme — follows system, remembers the toggle, honours ?theme= for testing
-  const root=document.documentElement,tt=document.getElementById('tt');
-  const q=new URLSearchParams(location.search).get('theme');
-  const saved=localStorage.getItem('awba-theme');
-  const start=q||saved||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
-  setTheme(start==='dark'||start==='night'?'dark':'light',false);
-  tt.addEventListener('click',()=>setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark',true));
-  function setTheme(t,save){
-    root.setAttribute('data-theme',t);
-    tt.textContent=t==='dark'?'◑ Day':'◐ Night';
-    tt.setAttribute('aria-pressed',t==='dark');
-    if(save)localStorage.setItem('awba-theme',t);
-  }
+  document.documentElement.classList.add('loaded');
 
   // reveal on scroll — slow ease-out, once
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // living calligraphy — draw in when seen, breathe out once scrolled past
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');e.target.classList.remove('out')}
+    else if(e.target.classList.contains('in')&&e.boundingClientRect.top<0){e.target.classList.add('out')}
+  }),{threshold:.35});
+  document.querySelectorAll('.callig').forEach(el=>cio.observe(el));
+
+  // slim nav arrives once the hero is behind you
+  const slim=document.getElementById('slimnav'),hero=document.querySelector('.hero');
+  const nio=new IntersectionObserver(es=>es.forEach(e=>{
+    const show=!e.isIntersecting;
+    slim.classList.toggle('show',show);
+    slim.setAttribute('aria-hidden',!show);
+    slim.querySelectorAll('a').forEach(a=>a.tabIndex=show?0:-1);
+  }),{rootMargin:'-72px 0px 0px 0px'});
+  nio.observe(hero);
+
+  // intent cards — one quiet choice, no form
+  const intents=[...document.querySelectorAll('.intent')];
+  intents.forEach(b=>b.addEventListener('click',()=>{
+    const on=b.getAttribute('aria-pressed')!=='true';
+    intents.forEach(x=>x.setAttribute('aria-pressed','false'));
+    if(on)b.setAttribute('aria-pressed','true');
+  }));
 
   // waitlist — MailerLite double opt-in; the confirmation email does the real consent capture
   const form=document.getElementById('wl'),card=document.getElementById('lampcard'),err=document.getElementById('wlerr'),btn=document.getElementById('wlbtn');
