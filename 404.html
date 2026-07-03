@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awba — the way back</title><meta name="robots" content="noindex"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg stroke='%23F2C879' stroke-width='14' stroke-linecap='round' fill='none'%3E%3Cpath d='M109.5,22.6 A78,78 0 0 1 177.4,90.5'/%3E%3Cpath d='M177.4,109.5 A78,78 0 0 1 109.5,177.4'/%3E%3Cpath d='M90.5,177.4 A78,78 0 0 1 22.6,109.5'/%3E%3Cpath d='M22.6,90.5 A78,78 0 0 1 90.5,22.6'/%3E%3C/g%3E%3Ccircle cx='100' cy='100' r='30' fill='%23F2C879'/%3E%3C/svg%3E">
+<style>
+:root{--bone:#FBF9F6;--ink:#241B2E;--gold:#F2C879;--goldtext:#a97e1e;--rose:#E14C6A;--soft:#4b4356}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bone);color:var(--ink);font-family:system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem;line-height:1.6}
+body::before{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;border:clamp(5px,.8vw,10px) solid var(--rose)}
+.callig{width:min(60vw,15rem);margin:0 auto;color:var(--goldtext)}
+.callig figcaption{color:var(--soft);font-family:system-ui}
+h1{font-weight:800;font-size:2rem;letter-spacing:-.02em;margin-top:1.75rem}
+p{color:var(--soft);margin-top:.75rem}
+.btn{display:inline-flex;margin-top:1.75rem;background:var(--gold);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:.85rem 1.6rem;font-weight:600;text-decoration:none}
+.callig svg{overflow:visible;display:block;width:100%;height:auto}
+.callig .pen{animation-duration:2.3s;animation-timing-function:linear;animation-fill-mode:forwards;animation-play-state:paused}
+.callig.in .pen{animation-play-state:running}
+.callig figcaption{font-size:.8125rem;font-weight:500;letter-spacing:.05em;opacity:0;transition:opacity 1s ease-out;text-align:center;margin-top:.6rem;white-space:nowrap}
+.callig.in figcaption{opacity:1;transition-delay:1.9s}
+@media(prefers-reduced-motion:reduce){.callig .pen{animation:none!important;stroke-dashoffset:0!important}.callig figcaption{opacity:1;transition:none}}
+</style></head>
+<body>
+<main>
+  <figure class="callig" role="img" aria-label="رجوع (rujūʿ) — return">
+    <svg viewBox="-5 -684 2080 1028" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+      <defs><mask id="pm-rujue-24" maskUnits="userSpaceOnUse" x="-1237" y="-1916" width="4545" height="3493">
+        <path class="pen" d="M2713 -170 L-643 -170" fill="none" stroke="#fff" stroke-width="1232" stroke-linecap="round" stroke-dasharray="3356" stroke-dashoffset="3356" style="animation-name:pen-rujue"/>
+      </mask></defs>
+      <path d="M342.0 304.0Q196.0 304.0 115.5 236.0Q35.0 168.0 35.0 44.0Q35.0 -35.0 80.5 -98.0Q126.0 -161.0 226.0 -209.0V-214.0Q164.0 -252.0 135.5 -298.5Q107.0 -345.0 107.0 -404.0Q107.0 -450.0 123.0 -493.5Q139.0 -537.0 169.5 -570.5Q200.0 -604.0 243.5 -624.0Q287.0 -644.0 342.0 -644.0Q416.0 -644.0 468.0 -610.0Q520.0 -576.0 552.0 -521.0L445.0 -426.0Q423.0 -461.0 394.0 -477.5Q365.0 -494.0 322.0 -494.0Q268.0 -494.0 237.5 -471.0Q207.0 -448.0 207.0 -403.0Q207.0 -311.0 356.0 -311.0Q384.0 -311.0 416.0 -314.0Q448.0 -317.0 487.0 -324.0L567.0 -338.0L590.0 -200.0L459.0 -178.0Q296.0 -151.0 221.0 -104.0Q146.0 -57.0 146.0 19.0V31.0Q146.0 94.0 198.0 124.0Q250.0 154.0 342.0 154.0Q414.0 154.0 484.5 128.5Q555.0 103.0 606.0 56.0L681.0 174.0Q618.0 235.0 529.0 269.5Q440.0 304.0 342.0 304.0Z M681.0 90.0H745.0Q840.0 90.0 897.5 66.0Q955.0 42.0 979.0 0.0H863.0Q782.0 0.0 736.5 -47.5Q691.0 -95.0 691.0 -180.0Q691.0 -232.0 706.5 -276.5Q722.0 -321.0 749.5 -353.5Q777.0 -386.0 814.5 -404.5Q852.0 -423.0 896.0 -423.0Q987.0 -423.0 1040.0 -351.0Q1093.0 -279.0 1098.0 -150.0H1149.0V-30.0L1119.0 0.0H1085.0Q1057.0 115.0 974.5 177.5Q892.0 240.0 755.0 240.0H681.0ZM791.0 -200.0Q791.0 -173.0 813.0 -161.5Q835.0 -150.0 873.0 -150.0H998.0V-153.0Q998.0 -207.0 965.5 -240.0Q933.0 -273.0 883.0 -273.0Q844.0 -273.0 817.5 -252.5Q791.0 -232.0 791.0 -200.0Z M1119.0 -120.0 1149.0 -150.0H1218.0Q1274.0 -150.0 1318.5 -151.5Q1363.0 -153.0 1403.0 -159.0Q1443.0 -165.0 1481.0 -177.0Q1519.0 -189.0 1562.0 -210.0L1599.0 -228.0V-233.0L1439.0 -267.0L1288.0 -304.0V-229.0H1173.0V-306.0Q1173.0 -377.0 1203.5 -410.0Q1234.0 -443.0 1297.0 -443.0Q1305.0 -443.0 1313.5 -442.0Q1322.0 -441.0 1333.5 -439.0Q1345.0 -437.0 1361.0 -433.0Q1377.0 -429.0 1401.0 -423.0L1594.0 -373.0Q1634.0 -362.0 1680.0 -356.0Q1726.0 -350.0 1771.0 -350.0H1791.0V-200.0H1713.0L1619.0 -136.0Q1553.0 -91.0 1500.5 -64.5Q1448.0 -38.0 1401.0 -23.5Q1354.0 -9.0 1310.0 -4.5Q1266.0 0.0 1218.0 0.0H1119.0ZM1464.0 215.0Q1438.0 215.0 1421.5 199.0Q1405.0 183.0 1405.0 148.0Q1405.0 113.0 1421.5 97.0Q1438.0 81.0 1464.0 81.0H1484.0Q1510.0 81.0 1526.5 97.0Q1543.0 113.0 1543.0 148.0Q1543.0 183.0 1526.5 199.0Q1510.0 215.0 1484.0 215.0Z M1711.0 90.0H1751.0Q1842.0 90.0 1884.5 53.0Q1927.0 16.0 1926.0 -70.0Q1926.0 -93.0 1923.0 -118.5Q1920.0 -144.0 1915.0 -173.0L1894.0 -306.0L2003.0 -323.0L2018.0 -230.0Q2026.0 -182.0 2030.5 -141.5Q2035.0 -101.0 2035.0 -75.0Q2035.0 -3.0 2017.0 55.0Q1999.0 113.0 1963.0 154.5Q1927.0 196.0 1874.0 218.0Q1821.0 240.0 1752.0 240.0H1711.0Z" fill="currentColor" mask="url(#pm-rujue-24)"/>
+    </svg>
+    <figcaption>rujūʿ — return</figcaption>
+  </figure>
+  <h1>This page wandered off.</h1>
+  <p>What matters is the way back.</p>
+  <a class="btn" id="home" href="/">Return home</a>
+</main>
+<script>
+const a=document.getElementById('home');
+a.href=location.pathname.startsWith('/awba/')?'/awba/':'/';
+requestAnimationFrame(()=>document.querySelector('.callig').classList.add('in'));
+</script>
+</body></html>
