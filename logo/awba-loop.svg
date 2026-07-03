@@ -1,0 +1,21 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Awba loop — hero state">
+  <defs>
+    <linearGradient id="awbaRing" x1="30" y1="30" x2="170" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E14C6A"/>
+      <stop offset="0.5" stop-color="#C874AF"/>
+      <stop offset="1" stop-color="#8E6DA8"/>
+    </linearGradient>
+    <linearGradient id="awbaHub" x1="72" y1="72" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E14C6A"/>
+      <stop offset="0.5" stop-color="#C874AF"/>
+      <stop offset="1" stop-color="#8E6DA8"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#awbaRing)" stroke-width="12" stroke-linecap="round" fill="none">
+    <path d="M109.5,22.6 A78,78 0 0 1 177.4,90.5"/>
+    <path d="M177.4,109.5 A78,78 0 0 1 109.5,177.4"/>
+    <path d="M90.5,177.4 A78,78 0 0 1 22.6,109.5"/>
+    <path d="M22.6,90.5 A78,78 0 0 1 90.5,22.6"/>
+  </g>
+  <circle cx="100" cy="100" r="30" fill="url(#awbaHub)"/>
+</svg>

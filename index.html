@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awba — The reason, not the reminder.</title>
+<meta name="description" content="Awba (أوبة) — a companion that tells you why to pray, not just when. Made for young UK Muslims. Join the waitlist for early access.">
+<meta property="og:title" content="Awba — The reason, not the reminder.">
+<meta property="og:description" content="A companion that tells you why to pray, not just when. Join the waitlist for early access.">
+<meta property="og:url" content="https://awba.app/">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg stroke='%23F2C879' stroke-width='14' stroke-linecap='round' fill='none'%3E%3Cpath d='M109.5,22.6 A78,78 0 0 1 177.4,90.5'/%3E%3Cpath d='M177.4,109.5 A78,78 0 0 1 109.5,177.4'/%3E%3Cpath d='M90.5,177.4 A78,78 0 0 1 22.6,109.5'/%3E%3Cpath d='M22.6,90.5 A78,78 0 0 1 90.5,22.6'/%3E%3C/g%3E%3Ccircle cx='100' cy='100' r='30' fill='%23F2C879'/%3E%3C/svg%3E">
+<style>
+  @font-face{font-family:'Bricolage';src:url('fonts/bricolage-400.woff2') format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'Bricolage';src:url('fonts/bricolage-600.woff2') format('woff2');font-weight:600;font-display:swap}
+  @font-face{font-family:'Bricolage';src:url('fonts/bricolage-800.woff2') format('woff2');font-weight:800;font-display:swap}
+  @font-face{font-family:'Inter';src:url('fonts/inter-400.woff2') format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'Inter';src:url('fonts/inter-500.woff2') format('woff2');font-weight:500;font-display:swap}
+  @font-face{font-family:'Inter';src:url('fonts/inter-600.woff2') format('woff2');font-weight:600;font-display:swap}
+  @font-face{font-family:'PlexAr';src:url('fonts/plexar-600.woff2') format('woff2');font-weight:600;font-display:swap}
+
+  :root{
+    --bone:#FBF9F6; --paper:#FFFFFF; --ink:#241B2E; --muted:#8A8194;
+    --rose:#E14C6A; --orchid:#C874AF; --lavender:#8E6DA8; --gold:#F2C879;
+    --line:#EDE7E0; --soft:#4b4356;
+    --grad:linear-gradient(135deg,#E14C6A 0%,#C874AF 50%,#8E6DA8 100%);
+    --mesh:radial-gradient(circle at 22% 26%,#E14C6A 0%,rgba(225,76,106,0) 55%),
+           radial-gradient(circle at 80% 22%,#C874AF 0%,rgba(200,116,175,0) 55%),
+           radial-gradient(circle at 55% 88%,#8E6DA8 0%,rgba(142,109,168,0) 62%),
+           radial-gradient(circle at 12% 90%,#E14C6A 0%,rgba(225,76,106,0) 52%),
+           #C874AF;
+    --bg:var(--bone); --surface:var(--paper); --text:var(--ink); --sub:var(--soft); --hair:var(--line);
+    --glow:rgba(242,200,121,.34);
+    --goldtext:#a97e1e; /* gold as text needs the kit's darkened value on light ground */
+  }
+  :root[data-theme="dark"]{
+    --bg:#1A1320; --surface:#241B2E; --text:#FBF9F6; --sub:#C9C1D2; --muted:#9A90A6; --hair:#3a2f47;
+    --glow:rgba(242,200,121,.22);
+    --goldtext:var(--gold);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+  .wrap{max-width:940px;margin:0 auto;padding:0 24px}
+  a{color:var(--rose)}
+  :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:4px}
+
+  /* top bar */
+  .bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brandmini{display:flex;align-items:center;gap:10px;font-family:'Bricolage';font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--text);text-decoration:none}
+  .brandmini .dot{color:var(--gold)}
+  .brandmini svg{width:22px;height:22px}
+  .toggle{border:1px solid var(--hair);background:var(--surface);color:var(--sub);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit}
+  .toggle:hover{color:var(--text)}
+
+  section{padding:84px 0;border-bottom:1px solid var(--hair)}
+  .kick{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
+  h2{font-family:'Bricolage';font-weight:800;font-size:34px;line-height:1.08;letter-spacing:-.015em;margin-bottom:18px;text-wrap:balance}
+  h3{font-family:'Bricolage';font-weight:600;font-size:19px;margin:0 0 8px}
+  p{color:var(--sub);font-size:16px;max-width:660px}
+  p+p{margin-top:14px}
+  .lead{font-size:19px;color:var(--text);max-width:680px}
+
+  /* HERO — the wordmark's mesh stop is this page's one gradient moment */
+  .hero{padding:104px 0 92px;border-bottom:1px solid var(--hair)}
+  .say{color:var(--muted);font-size:15px;letter-spacing:.02em;margin-bottom:26px}
+  .say b{color:var(--sub);font-weight:600}
+  .say .arabic{font-family:'PlexAr';direction:rtl;unicode-bidi:isolate;font-weight:600;color:var(--goldtext);font-size:17px}
+  .wordmark{font-family:'Bricolage';font-weight:800;font-size:clamp(76px,13vw,132px);line-height:.9;letter-spacing:-.03em;color:var(--text)}
+  .wordmark .stop{background:var(--mesh);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  h1.tagline{font-family:'Bricolage';font-weight:600;font-size:clamp(24px,3.4vw,30px);margin-top:38px;color:var(--text);max-width:560px;line-height:1.25;letter-spacing:-.01em}
+  .sub{margin-top:16px;font-size:17px;max-width:560px}
+  .sub em{font-style:italic;color:var(--text)}
+  .btnrow{display:flex;gap:12px;align-items:center;margin-top:34px;flex-wrap:wrap}
+  .btn{display:inline-block;border:none;border-radius:12px;padding:14px 26px;font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .5s ease-out,box-shadow .5s ease-out}
+  .btn.primary{background:var(--rose);color:#fff}
+  .btn.primary:hover{box-shadow:0 6px 24px rgba(225,76,106,.28)}
+  .btn.ghost{background:none;color:var(--muted);padding:14px 10px}
+  .btn.ghost:hover{color:var(--text)}
+
+  /* the reason */
+  .mech{background:var(--surface);border:1px solid var(--hair);border-radius:18px;padding:26px 30px;margin-top:28px;max-width:680px}
+  .mech p{color:var(--text);font-family:'Bricolage';font-weight:600;font-size:20px;line-height:1.4;max-width:none}
+
+  /* how it works — a real sequence: understand, return, grow */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px}
+  .card{background:var(--surface);border:1px solid var(--hair);border-radius:18px;padding:28px}
+  .beat .n{font-family:'Bricolage';font-weight:400;font-size:15px;color:var(--goldtext);letter-spacing:.08em;display:block;margin-bottom:14px}
+  .beat p{font-size:15px}
+  @media(max-width:720px){.grid3{grid-template-columns:1fr}}
+
+  /* gifting */
+  .gift h2 .keep{color:var(--muted)}
+
+  /* waitlist — “the lamp left on” */
+  .waitlist{padding:100px 0}
+  .lampcard{position:relative;background:var(--surface);border:1px solid var(--hair);border-radius:22px;padding:56px 28px 48px;max-width:620px;margin:0 auto;text-align:center;overflow:hidden}
+  .lampglow{position:absolute;left:50%;top:74px;width:280px;height:280px;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--glow) 0%,rgba(242,200,121,0) 62%);pointer-events:none;animation:breathe 7s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+  .lampcard .loop{width:64px;height:64px;position:relative}
+  .lampcard h2{margin-top:22px}
+  .lampcard>p{margin:0 auto;max-width:440px}
+  form{margin:30px auto 0;max-width:420px;text-align:left}
+  .field{display:flex;flex-direction:column;gap:6px}
+  label{font-size:14px;font-weight:500;color:var(--text)}
+  input[type=email]{width:100%;border:1px solid var(--hair);background:var(--bg);color:var(--text);border-radius:12px;padding:14px 16px;font-size:16px;font-family:inherit}
+  input[type=email]::placeholder{color:var(--muted)}
+  input[type=email]:focus{outline:2px solid var(--rose);outline-offset:0;border-color:transparent}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:14px;color:var(--sub)}
+  .consent input{margin-top:4px;width:16px;height:16px;flex:none;accent-color:var(--rose)}
+  form .btn.primary{width:100%;margin-top:18px}
+  .micro{margin-top:16px;font-size:13px;color:var(--muted);text-align:center;max-width:none}
+  .formerr{display:none;margin-top:14px;font-size:14px;color:var(--rose);text-align:center}
+  .confirm{display:none;margin:34px auto 0;max-width:440px}
+  .confirm h3{font-family:'Bricolage';font-weight:600;font-size:22px;line-height:1.3}
+  .confirm h3 .glow{color:var(--goldtext)}
+  .confirm p{margin:12px auto 0;font-size:15px}
+  .done .confirm{display:block}
+  .done form,.done .listmicro{display:none}
+
+  /* footer */
+  .foot{padding:44px 0 84px;color:var(--muted);font-size:14px}
+  .foot .mark{font-family:'Bricolage';font-weight:800;font-size:18px;color:var(--text)}
+  .foot .mark .dot{color:var(--gold)}
+  .foot p{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .foot a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+  .foot a:hover{color:var(--text)}
+
+  /* motion — ease-out, slow, like breath */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .9s ease-out,transform .9s ease-out}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    .lampglow{animation:none}
+    .btn{transition:none}
+  }
+</style>
+<noscript><style>.reveal{opacity:1;transform:none}.lampglow{animation:none}</style></noscript>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <a class="brandmini" href="#top" aria-label="Awba — home">
+    <svg viewBox="0 0 200 200" aria-hidden="true"><g stroke="#F2C879" stroke-width="14" stroke-linecap="round" fill="none"><path d="M109.5,22.6 A78,78 0 0 1 177.4,90.5"/><path d="M177.4,109.5 A78,78 0 0 1 109.5,177.4"/><path d="M90.5,177.4 A78,78 0 0 1 22.6,109.5"/><path d="M22.6,90.5 A78,78 0 0 1 90.5,22.6"/></g><circle cx="100" cy="100" r="30" fill="#F2C879"/></svg>
+    Awba<span class="dot">.</span>
+  </a>
+  <button class="toggle" id="tt" aria-pressed="false">◐ Night</button>
+</div></div>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="say">Awba (<span class="arabic">أوبة</span>) · say <b>AW-ba</b> · “the return”</div>
+  <div class="wordmark">Awba<span class="stop">.</span></div>
+  <h1 class="tagline">The reason, not the reminder.</h1>
+  <p class="sub">A companion that tells you <em>why</em> to pray, not just when — tied to the hadith, the story, and the Name of Allah behind it.</p>
+  <div class="btnrow">
+    <a class="btn primary" href="#waitlist">Get early access</a>
+    <a class="btn ghost" href="#how">See how it works →</a>
+  </div>
+</div></header>
+
+<section class="reveal"><div class="wrap">
+  <div class="kick">The reason</div>
+  <h2>Every other app reminds you it’s time.</h2>
+  <p class="lead">Awba tells you why it’s worth it.</p>
+  <div class="mech"><p>Knowledge funds the action; the feeling follows; faith grows from both.</p></div>
+</div></section>
+
+<section id="how" class="reveal"><div class="wrap">
+  <div class="kick">How it works</div>
+  <div class="grid3">
+    <div class="card beat">
+      <span class="n">01</span>
+      <h3>Understand the why</h3>
+      <p>The reason behind each practice, in five calm minutes, not a two-hour lecture.</p>
+    </div>
+    <div class="card beat">
+      <span class="n">02</span>
+      <h3>Return without shame</h3>
+      <p>We reward the return, never mark the absence. Iman has seasons.</p>
+    </div>
+    <div class="card beat">
+      <span class="n">03</span>
+      <h3>Grow quietly</h3>
+      <p>No streaks, no scores, no leaderboards. Calm is the point.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="gift reveal"><div class="wrap">
+  <div class="kick">Gifting</div>
+  <h2>Give one. <span class="keep">Keep one.</span></h2>
+  <p class="lead">Early access you can gift — because helping someone return is sadaqah jariyah, built into the model, not bolted on.</p>
+</div></section>
+
+<section class="waitlist reveal" id="waitlist"><div class="wrap">
+  <div class="lampcard" id="lampcard">
+    <div class="lampglow" aria-hidden="true"></div>
+    <svg class="loop" viewBox="0 0 200 200" aria-hidden="true"><g stroke="#F2C879" stroke-width="12" stroke-linecap="round" fill="none"><path d="M109.5,22.6 A78,78 0 0 1 177.4,90.5"/><path d="M177.4,109.5 A78,78 0 0 1 109.5,177.4"/><path d="M90.5,177.4 A78,78 0 0 1 22.6,109.5"/><path d="M22.6,90.5 A78,78 0 0 1 90.5,22.6"/></g><circle cx="100" cy="100" r="30" fill="#F2C879"/></svg>
+    <h2>Be there when the door opens.</h2>
+    <p>Leave an email and we’ll write to you once, when early access opens.</p>
+
+    <!--
+      MAILERLITE — replace the action below with the real MailerLite form action
+      (Dashboard → Forms → Embedded form → the <form action="…"> URL, e.g.
+      https://assets.mailerlite.com/jsonp/ACCOUNT_ID/forms/FORM_ID/subscribe).
+      Double opt-in must be ON for the form's group in MailerLite settings —
+      MailerLite then sends the confirmation email and stores the consent record.
+    -->
+    <form id="wl" action="MAILERLITE_FORM_ACTION" method="post" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" name="fields[email]" autocomplete="email" required placeholder="you@example.com">
+      </div>
+      <div class="consent">
+        <input id="consent" type="checkbox" required>
+        <label for="consent">Email me about Awba’s early access.</label>
+      </div>
+      <button class="btn primary" type="submit" id="wlbtn">Get early access</button>
+      <p class="formerr" id="wlerr" role="alert">That didn’t go through. Check the address and try once more.</p>
+    </form>
+    <p class="micro listmicro">We’ll only email you about Awba’s launch. No spam, unsubscribe anytime. Read our <a href="privacy.html">privacy notice</a>.</p>
+
+    <div class="confirm" role="status" aria-live="polite">
+      <h3>One email is on its way to you. <span class="glow">Confirm it, and you’re in.</span></h3>
+      <p>That’s the whole thing — we won’t write again until the door opens.</p>
+    </div>
+  </div>
+</div></section>
+
+<footer class="foot"><div class="wrap">
+  <div class="mark">Awba<span class="dot">.</span> <span style="font-family:'Inter';font-weight:400;font-size:14px;color:var(--muted)">· the return · awba.app</span></div>
+  <p>Made for young UK Muslims, English-first. · <a href="privacy.html">Privacy</a></p>
+</div></footer>
+
+<script>
+  // theme — follows system, remembers the toggle, honours ?theme= for testing
+  const root=document.documentElement,tt=document.getElementById('tt');
+  const q=new URLSearchParams(location.search).get('theme');
+  const saved=localStorage.getItem('awba-theme');
+  const start=q||saved||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  setTheme(start==='dark'||start==='night'?'dark':'light',false);
+  tt.addEventListener('click',()=>setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark',true));
+  function setTheme(t,save){
+    root.setAttribute('data-theme',t);
+    tt.textContent=t==='dark'?'◑ Day':'◐ Night';
+    tt.setAttribute('aria-pressed',t==='dark');
+    if(save)localStorage.setItem('awba-theme',t);
+  }
+
+  // reveal on scroll — slow ease-out, once
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // waitlist — MailerLite double opt-in; the confirmation email does the real consent capture
+  const form=document.getElementById('wl'),card=document.getElementById('lampcard'),err=document.getElementById('wlerr'),btn=document.getElementById('wlbtn');
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    err.style.display='none';
+    if(!form.reportValidity())return;
+    const action=form.getAttribute('action');
+    if(action.includes('MAILERLITE_FORM_ACTION')){
+      // placeholder mode: no endpoint yet — show the double-opt-in state so the flow can be previewed
+      console.warn('Awba waitlist: MAILERLITE_FORM_ACTION placeholder still in place — no email was sent.');
+      card.classList.add('done');return;
+    }
+    btn.disabled=true;btn.textContent='One moment…';
+    try{
+      const res=await fetch(action,{method:'POST',body:new FormData(form)});
+      if(!res.ok)throw new Error(res.status);
+      card.classList.add('done');
+    }catch(_){
+      err.style.display='block';
+      btn.disabled=false;btn.textContent='Get early access';
+    }
+  });
+</script>
+</body>
+</html>

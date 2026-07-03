@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy notice — Awba</title>
+<meta name="description" content="What Awba collects from the waitlist (an email address, a timestamp, a consent record), why, and how to withdraw. We never sell your data.">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg stroke='%23F2C879' stroke-width='14' stroke-linecap='round' fill='none'%3E%3Cpath d='M109.5,22.6 A78,78 0 0 1 177.4,90.5'/%3E%3Cpath d='M177.4,109.5 A78,78 0 0 1 109.5,177.4'/%3E%3Cpath d='M90.5,177.4 A78,78 0 0 1 22.6,109.5'/%3E%3Cpath d='M22.6,90.5 A78,78 0 0 1 90.5,22.6'/%3E%3C/g%3E%3Ccircle cx='100' cy='100' r='30' fill='%23F2C879'/%3E%3C/svg%3E">
+<style>
+  @font-face{font-family:'Bricolage';src:url('fonts/bricolage-400.woff2') format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'Bricolage';src:url('fonts/bricolage-600.woff2') format('woff2');font-weight:600;font-display:swap}
+  @font-face{font-family:'Bricolage';src:url('fonts/bricolage-800.woff2') format('woff2');font-weight:800;font-display:swap}
+  @font-face{font-family:'Inter';src:url('fonts/inter-400.woff2') format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'Inter';src:url('fonts/inter-500.woff2') format('woff2');font-weight:500;font-display:swap}
+  @font-face{font-family:'Inter';src:url('fonts/inter-600.woff2') format('woff2');font-weight:600;font-display:swap}
+
+  :root{
+    --bone:#FBF9F6; --paper:#FFFFFF; --ink:#241B2E; --muted:#8A8194;
+    --rose:#E14C6A; --gold:#F2C879; --line:#EDE7E0; --soft:#4b4356;
+    --bg:var(--bone); --surface:var(--paper); --text:var(--ink); --sub:var(--soft); --hair:var(--line);
+    --goldtext:#a97e1e;
+  }
+  :root[data-theme="dark"]{
+    --bg:#1A1320; --surface:#241B2E; --text:#FBF9F6; --sub:#C9C1D2; --muted:#9A90A6; --hair:#3a2f47;
+    --goldtext:var(--gold);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px}
+  a{color:var(--rose)}
+  :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:4px}
+
+  .bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:940px}
+  .brandmini{display:flex;align-items:center;gap:10px;font-family:'Bricolage';font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--text);text-decoration:none}
+  .brandmini .dot{color:var(--gold)}
+  .brandmini svg{width:22px;height:22px}
+  .toggle{border:1px solid var(--hair);background:var(--surface);color:var(--sub);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit}
+  .toggle:hover{color:var(--text)}
+
+  header{padding:76px 0 14px}
+  .kick{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
+  h1{font-family:'Bricolage';font-weight:800;font-size:clamp(32px,5vw,44px);line-height:1.08;letter-spacing:-.015em}
+  .intro{margin-top:18px;font-size:18px;color:var(--text)}
+  .updated{margin-top:10px;font-size:13.5px;color:var(--muted)}
+
+  main{padding-bottom:40px}
+  section{padding:34px 0 6px}
+  h2{font-family:'Bricolage';font-weight:600;font-size:21px;margin-bottom:10px}
+  p{color:var(--sub);font-size:15.5px}
+  p+p{margin-top:12px}
+  ul{margin:10px 0 0 2px;list-style:none}
+  li{color:var(--sub);font-size:15.5px;padding:5px 0 5px 24px;position:relative}
+  li::before{content:"—";position:absolute;left:0;color:var(--goldtext)}
+  strong{color:var(--text);font-weight:600}
+  .never{background:var(--surface);border:1px solid var(--hair);border-radius:18px;padding:24px 28px;margin-top:34px}
+  .never p{color:var(--text);font-family:'Bricolage';font-weight:600;font-size:19px;line-height:1.4}
+  .foot{padding:40px 0 84px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--hair);margin-top:44px}
+  .foot a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+  .foot a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <a class="brandmini" href="index.html" aria-label="Awba — home">
+    <svg viewBox="0 0 200 200" aria-hidden="true"><g stroke="#F2C879" stroke-width="14" stroke-linecap="round" fill="none"><path d="M109.5,22.6 A78,78 0 0 1 177.4,90.5"/><path d="M177.4,109.5 A78,78 0 0 1 109.5,177.4"/><path d="M90.5,177.4 A78,78 0 0 1 22.6,109.5"/><path d="M22.6,90.5 A78,78 0 0 1 90.5,22.6"/></g><circle cx="100" cy="100" r="30" fill="#F2C879"/></svg>
+    Awba<span class="dot">.</span>
+  </a>
+  <button class="toggle" id="tt" aria-pressed="false">◐ Night</button>
+</div></div>
+
+<header><div class="wrap">
+  <div class="kick">Privacy notice</div>
+  <h1>You gave us one thing. Here’s exactly what we do with it.</h1>
+  <p class="intro">Joining the Awba waitlist means trusting us with an email address before we’ve shipped anything. We take that seriously — this page says plainly what we collect, why, and how to take it back.</p>
+  <p class="updated">Last updated 3 July 2026 · applies to the waitlist at awba.app</p>
+</div></header>
+
+<main><div class="wrap">
+
+<section>
+  <h2>What we collect</h2>
+  <ul>
+    <li><strong>Your email address</strong> — the one you type into the waitlist form.</li>
+    <li><strong>A timestamp</strong> — when you signed up and when you confirmed.</li>
+    <li><strong>A consent record</strong> — proof that you ticked the box and clicked the confirmation email, so we never have to guess whether you asked to hear from us.</li>
+  </ul>
+  <p>That’s the whole list. No tracking pixels on this site, no analytics profile, no address books uploaded on your behalf.</p>
+</section>
+
+<section>
+  <h2>Why we collect it</h2>
+  <p>One purpose: <strong>to email you when Awba’s early access opens.</strong> We won’t use the list for anything else, and we won’t email you about other products or “updates you might like”.</p>
+  <p>Our lawful basis is your <strong>consent</strong> (UK GDPR, Article 6(1)(a)), and we follow the UK’s electronic-marketing rules (PECR). That’s why the consent box is never pre-ticked, and why we ask you to confirm by email before you’re on the list at all — a double opt-in.</p>
+</section>
+
+<section>
+  <h2>Who holds it</h2>
+  <p>The list lives with <strong>MailerLite</strong> (MailerLite Inc., with EU-hosted infrastructure), the service we use to store signups and send the launch email. MailerLite processes your address only on our instructions; their own privacy terms are at <a href="https://www.mailerlite.com/legal/privacy-policy" rel="noopener">mailerlite.com/legal/privacy-policy</a>.</p>
+  <p>Nobody else gets it. We don’t share the list with advertisers, partners, or anyone who’d call it an “audience”.</p>
+</section>
+
+<section>
+  <h2>How long we keep it</h2>
+  <p>Until the launch emails have gone out and the waitlist has done its job, after which the list is deleted. If you withdraw before then, we remove your address within <strong>30 days</strong>. If you start a signup but never click the confirmation email, that unconfirmed record is deleted rather than kept around.</p>
+</section>
+
+<section>
+  <h2>Your rights</h2>
+  <ul>
+    <li><strong>Withdraw anytime</strong> — every email we send has an unsubscribe link, or just write to us. Withdrawing is instant and doesn’t need a reason.</li>
+    <li><strong>Access</strong> — ask us what we hold about you (it will be the three items above).</li>
+    <li><strong>Correct or erase</strong> — ask us to fix your address or delete it entirely.</li>
+    <li><strong>Complain</strong> — if you think we’ve handled your data badly, you can complain to the UK regulator, the <a href="https://ico.org.uk/make-a-complaint/" rel="noopener">Information Commissioner’s Office</a>. We’d rather you told us first, so we can put it right.</li>
+  </ul>
+  <p>To use any of these, email <a href="mailto:salaam@awba.app">salaam@awba.app</a>.</p>
+</section>
+
+<div class="never">
+  <p>And the line that matters most: <strong>we never sell your data.</strong> Not the list, not “insights” from it, not to anyone, not ever. An app built around trust doesn’t get to trade in it.</p>
+</div>
+
+</div></main>
+
+<footer class="foot"><div class="wrap">
+  Awba · the return · awba.app — <a href="index.html">Back to the site</a>
+</div></footer>
+
+<script>
+  const root=document.documentElement,tt=document.getElementById('tt');
+  const q=new URLSearchParams(location.search).get('theme');
+  const saved=localStorage.getItem('awba-theme');
+  const start=q||saved||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  setTheme(start==='dark'||start==='night'?'dark':'light',false);
+  tt.addEventListener('click',()=>setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark',true));
+  function setTheme(t,save){
+    root.setAttribute('data-theme',t);
+    tt.textContent=t==='dark'?'◑ Day':'◐ Night';
+    tt.setAttribute('aria-pressed',t==='dark');
+    if(save)localStorage.setItem('awba-theme',t);
+  }
+</script>
+</body>
+</html>
