@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awba — you’re in.</title><meta name="robots" content="noindex"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg stroke='%23F2C879' stroke-width='14' stroke-linecap='round' fill='none'%3E%3Cpath d='M109.5,22.6 A78,78 0 0 1 177.4,90.5'/%3E%3Cpath d='M177.4,109.5 A78,78 0 0 1 109.5,177.4'/%3E%3Cpath d='M90.5,177.4 A78,78 0 0 1 22.6,109.5'/%3E%3Cpath d='M22.6,90.5 A78,78 0 0 1 90.5,22.6'/%3E%3C/g%3E%3Ccircle cx='100' cy='100' r='30' fill='%23F2C879'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:'Bricolage';src:url('fonts/bricolage-800.woff2') format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:'Bricolage';src:url('fonts/bricolage-600.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/inter-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/inter-600.woff2') format('woff2');font-weight:600;font-display:swap}
+:root{--bone:#FBF9F6;--ink:#241B2E;--gold:#F2C879;--goldtext:#a97e1e;--rose:#E14C6A;--soft:#4b4356;--bone-sub:#C9C1D2;--tint-rose:#F9DBE1}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--bone);font-family:'Inter',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem 1.25rem;line-height:1.6}
+body::before{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;border:clamp(5px,.8vw,10px) solid var(--rose)}
+.ticket{background:var(--bone);color:var(--ink);border-radius:16px;padding:2.75rem 2.25rem 1.5rem;max-width:26rem;text-align:center;rotate:-1.2deg;box-shadow:0 18px 50px rgba(0,0,0,.45);position:relative}
+.ticket::before,.ticket::after{content:"";position:absolute;top:50%;width:22px;height:22px;border-radius:50%;background:var(--ink);transform:translateY(-50%)}
+.ticket::before{left:-11px}.ticket::after{right:-11px}
+h1{font-family:'Bricolage';font-weight:800;font-size:2.25rem;letter-spacing:-.03em;margin-top:1.25rem}
+p{color:var(--soft);margin-top:.875rem;font-size:1rem}
+.callig{width:7rem;margin:0 auto;color:var(--goldtext)}
+.callig figcaption{color:var(--soft)}
+.stub{border-top:2px dashed rgba(36,27,46,.3);margin-top:1.75rem;padding:1rem 0 .5rem;font-size:.6875rem;font-weight:800;font-family:'Bricolage';letter-spacing:.16em;text-transform:uppercase;color:var(--goldtext)}
+.btn{display:inline-flex;margin-top:1.5rem;background:var(--gold);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:.8rem 1.5rem;font-weight:600;text-decoration:none}
+.callig svg{overflow:visible;display:block;width:100%;height:auto}
+.callig .pen{animation-duration:2.3s;animation-timing-function:linear;animation-fill-mode:forwards;animation-play-state:paused}
+.callig.in .pen{animation-play-state:running}
+.callig figcaption{font-size:.8125rem;font-weight:500;letter-spacing:.05em;opacity:0;transition:opacity 1s ease-out;text-align:center;margin-top:.6rem;white-space:nowrap}
+.callig.in figcaption{opacity:1;transition-delay:1.9s}
+@media(prefers-reduced-motion:reduce){.callig .pen{animation:none!important;stroke-dashoffset:0!important}.callig figcaption{opacity:1;transition:none}}
+</style></head>
+<body>
+<main class="ticket">
+  <figure class="callig" role="img" aria-label="شكر (shukr) — gratitude">
+    <svg viewBox="-100 -792 1711 1072" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+      <defs><mask id="pm-shukr-18" maskUnits="userSpaceOnUse" x="-1390" y="-2082" width="4290" height="3651">
+        <path class="pen" d="M2280 -256 L-769 -256" fill="none" stroke="#fff" stroke-width="1290" stroke-linecap="round" stroke-dasharray="3050" stroke-dashoffset="3050" style="animation-name:pen-shukr"/>
+      </mask></defs>
+      <path d="M-60.0 90.0H-20.0Q71.0 90.0 113.5 53.0Q156.0 16.0 155.0 -70.0Q155.0 -93.0 152.0 -118.5Q149.0 -144.0 144.0 -173.0L123.0 -306.0L232.0 -323.0L247.0 -230.0Q251.0 -208.0 253.5 -188.0Q256.0 -168.0 258.0 -150.0H350.0V-30.0L320.0 0.0H258.0Q241.0 111.0 170.5 175.5Q100.0 240.0 -19.0 240.0H-60.0Z M320.0 -120.0 350.0 -150.0H444.0Q480.0 -150.0 493.5 -157.5Q507.0 -165.0 507.0 -184.0Q507.0 -197.0 500.0 -207.5Q493.0 -218.0 476.0 -232.0L360.0 -336.0V-600.0L840.0 -752.0V-620.0L410.0 -485.0V-479.0L665.0 -246.0Q697.0 -216.0 722.5 -197.5Q748.0 -179.0 769.5 -168.5Q791.0 -158.0 810.0 -154.0Q829.0 -150.0 850.0 -150.0V-30.0L820.0 0.0Q786.0 0.0 758.5 -6.5Q731.0 -13.0 704.0 -30.5Q677.0 -48.0 647.5 -77.5Q618.0 -107.0 581.0 -153.0L554.0 -186.0L549.0 -183.0Q553.0 -164.0 553.0 -143.0Q553.0 -113.0 544.0 -87.0Q535.0 -61.0 518.0 -41.5Q501.0 -22.0 477.0 -11.0Q453.0 0.0 423.0 0.0H320.0Z M820.0 -120.0 850.0 -150.0H851.0Q899.0 -150.0 922.5 -161.5Q946.0 -173.0 960.0 -202.0L999.0 -283.0L1098.0 -235.0L1063.0 -162.0Q1087.0 -151.0 1112.0 -143.5Q1137.0 -136.0 1163.0 -136.0Q1206.0 -136.0 1225.0 -154.5Q1244.0 -173.0 1244.0 -220.0V-283.0H1354.0V-220.0Q1354.0 -178.0 1368.5 -159.0Q1383.0 -140.0 1408.0 -140.0H1418.0Q1439.0 -140.0 1452.0 -155.5Q1465.0 -171.0 1465.0 -205.0Q1465.0 -219.0 1462.0 -240.5Q1459.0 -262.0 1454.0 -293.0L1445.0 -344.0L1554.0 -362.0L1562.0 -311.0Q1567.0 -282.0 1569.0 -256.5Q1571.0 -231.0 1571.0 -205.0Q1571.0 -93.0 1532.5 -40.5Q1494.0 12.0 1413.0 12.0Q1342.0 12.0 1306.0 -22.0Q1270.0 -56.0 1257.0 -127.0H1251.0Q1243.0 -55.0 1215.5 -21.5Q1188.0 12.0 1143.0 12.0Q1114.0 12.0 1085.5 1.5Q1057.0 -9.0 1011.0 -36.0L990.0 -48.0Q959.0 -18.0 919.5 -9.0Q880.0 0.0 820.0 0.0ZM1368.0 -363.0Q1342.0 -363.0 1325.5 -379.0Q1309.0 -395.0 1309.0 -430.0Q1309.0 -465.0 1325.5 -481.0Q1342.0 -497.0 1368.0 -497.0H1388.0Q1414.0 -497.0 1430.5 -481.0Q1447.0 -465.0 1447.0 -430.0Q1447.0 -395.0 1430.5 -379.0Q1414.0 -363.0 1388.0 -363.0ZM1210.0 -363.0Q1184.0 -363.0 1167.5 -379.0Q1151.0 -395.0 1151.0 -430.0Q1151.0 -465.0 1167.5 -481.0Q1184.0 -497.0 1210.0 -497.0H1230.0Q1256.0 -497.0 1272.5 -481.0Q1289.0 -465.0 1289.0 -430.0Q1289.0 -395.0 1272.5 -379.0Q1256.0 -363.0 1230.0 -363.0ZM1289.0 -509.0Q1263.0 -509.0 1246.5 -525.0Q1230.0 -541.0 1230.0 -576.0Q1230.0 -611.0 1246.5 -627.0Q1263.0 -643.0 1289.0 -643.0H1309.0Q1335.0 -643.0 1351.5 -627.0Q1368.0 -611.0 1368.0 -576.0Q1368.0 -541.0 1351.5 -525.0Q1335.0 -509.0 1309.0 -509.0Z" fill="currentColor" mask="url(#pm-shukr-18)"/>
+    </svg>
+    <figcaption>shukr — gratitude</figcaption>
+  </figure>
+  <h1>You’re in.</h1>
+  <p>Your email is confirmed — one place saved, and one to give away when the door opens. We’ll write to you exactly once.</p>
+  <a class="btn" href="./">Back to Awba</a>
+  <div class="stub">Admit one — first wave ✦ awba.app</div>
+</main>
+<script>requestAnimationFrame(()=>document.querySelector('.callig').classList.add('in'))</script>
+</body></html>
