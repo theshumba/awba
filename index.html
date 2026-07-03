@@ -9,6 +9,15 @@
 <meta property="og:description" content="A companion that tells you why to pray, not just when. Join the waitlist for early access.">
 <meta property="og:url" content="https://awba.app/">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://theshumba.github.io/awba/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg stroke='%23F2C879' stroke-width='14' stroke-linecap='round' fill='none'%3E%3Cpath d='M109.5,22.6 A78,78 0 0 1 177.4,90.5'/%3E%3Cpath d='M177.4,109.5 A78,78 0 0 1 109.5,177.4'/%3E%3Cpath d='M90.5,177.4 A78,78 0 0 1 22.6,109.5'/%3E%3Cpath d='M22.6,90.5 A78,78 0 0 1 90.5,22.6'/%3E%3C/g%3E%3Ccircle cx='100' cy='100' r='30' fill='%23F2C879'/%3E%3C/svg%3E">
 <style>
   @font-face{font-family:'Bricolage';src:url('fonts/bricolage-400.woff2') format('woff2');font-weight:400;font-display:swap}
@@ -33,15 +42,15 @@
     --glow:rgba(242,200,121,.34);
     --goldtext:#a97e1e;
 
-    /* tints — every block colour is mixed from the kit above */
-    --tint-lavender:color-mix(in srgb,var(--lavender) 11%,var(--paper));
-    --tint-orchid:color-mix(in srgb,var(--orchid) 14%,var(--paper));
-    --tint-gold:color-mix(in srgb,var(--gold) 26%,var(--paper));
-    --tint-rose:color-mix(in srgb,var(--rose) 9%,var(--paper));
-    --ink-2:color-mix(in srgb,var(--paper) 7%,var(--ink));       /* raised surface on ink */
-    --bone-sub:#C9C1D2;                                           /* muted copy on ink (from the dark kit) */
-    --eyebrow:color-mix(in srgb,var(--muted) 45%,var(--ink));
-    --rose-lift:color-mix(in srgb,var(--rose) 72%,var(--paper));  /* error text on ink */
+    /* tints — precomputed mixes of the kit above (literal hexes so older iOS Safari renders them) */
+    --tint-lavender:#F3EFF5;   /* lavender 11% on paper */
+    --tint-orchid:#F7ECF4;     /* orchid 14% on paper */
+    --tint-gold:#FCF1DC;       /* gold 26% on paper */
+    --tint-rose:#FCEFF2;       /* rose 9% on paper */
+    --ink-2:#332B3D;           /* paper 7% on ink — raised surface on ink */
+    --bone-sub:#C9C1D2;        /* muted copy on ink (from the dark kit) */
+    --eyebrow:#52495C;         /* muted 45% on ink */
+    --rose-lift:#E97E94;       /* rose 72% on paper — error text on ink */
 
     /* type scale — headspace’s ladder, bricolage’s voice */
     --fs-hero:clamp(2.75rem,7.2vw,5.5rem);
@@ -63,7 +72,7 @@
 
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  html,body{overflow-x:clip}
+  html,body{overflow-x:hidden;overflow-x:clip}
   body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:var(--fs-body);line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   img,svg{max-width:100%}
   a{color:var(--rose)}
@@ -81,7 +90,7 @@
   .lead{font-size:var(--fs-lead);line-height:1.5;color:var(--ink);max-width:42rem}
 
   /* ─── pill buttons — one phrase, one colour, everywhere ─── */
-  .btn{display:inline-flex;align-items:center;justify-content:center;border:none;border-radius:999px;height:3.25rem;padding:0 1.75rem;font-family:'Inter',system-ui,sans-serif;font-size:1rem;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;
+  .btn{display:inline-flex;align-items:center;justify-content:center;border:none;border-radius:999px;height:3.25rem;padding:0 1.75rem;font-family:'Inter',system-ui,sans-serif;font-size:1rem;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent;
     background:var(--gold);color:var(--ink);box-shadow:var(--press);
     transition:background .15s var(--ease-btn),color .15s var(--ease-btn),box-shadow .15s var(--ease-btn),transform .15s var(--ease-btn)}
   .btn:hover{background:var(--ink);color:var(--gold)}
@@ -102,7 +111,7 @@
   html.loaded .ring path:nth-child(3){animation-delay:.71s}
   html.loaded .ring path:nth-child(4){animation-delay:1.04s}
   @keyframes ringdraw{to{stroke-dashoffset:0}}
-  .slimnav{position:fixed;inset:0 0 auto 0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(-110%);transition:transform .35s var(--ease-btn)}
+  .slimnav{position:fixed;inset:0 0 auto 0;z-index:20;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(-110%);transition:transform .35s var(--ease-btn)}
   .slimnav.show{transform:translateY(0)}
   .slimnav .wrap{display:flex;align-items:center;justify-content:space-between;height:4rem}
   .slimnav .brand{font-size:1.125rem}
@@ -113,7 +122,7 @@
   .hero{position:relative;padding:clamp(9.5rem,20vw,13.5rem) 0 clamp(5rem,10vw,7.5rem);overflow:clip}
   .hero .wrap{position:relative;z-index:1}
   .callig-hero{z-index:0}
-  .orb{position:absolute;right:-12%;top:-14%;width:min(56vw,44rem);aspect-ratio:1;border-radius:50%;background:var(--mesh);filter:blur(90px);opacity:.16;animation:breathe 8s ease-in-out infinite;pointer-events:none}
+  .orb{position:absolute;right:-12%;top:-14%;width:min(56vw,44rem);aspect-ratio:1;border-radius:50%;background:var(--mesh);filter:blur(80px);opacity:.16;animation:breathe 8s ease-in-out infinite;pointer-events:none;will-change:transform}
   @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
   .say{color:var(--eyebrow);font-size:.9375rem;letter-spacing:.02em;margin-bottom:1.5rem}
   .say b{font-weight:600;color:var(--ink)}
@@ -164,12 +173,12 @@
   .segment h2{font-size:var(--fs-h2-quiet);letter-spacing:-.02em}
   .segment .head p{font-size:1rem}
   .intents{display:grid;grid-template-columns:repeat(4,1fr);gap:1.125rem;margin-top:2.75rem}
-  .intent{--acc:var(--lavender);display:flex;flex-direction:column;align-items:flex-start;gap:1rem;text-align:left;background:var(--paper);border:2px solid transparent;border-radius:var(--card-r);padding:1.625rem 1.5rem 1.5rem;cursor:pointer;font-family:inherit;box-shadow:var(--card-shadow);transition:transform .15s var(--ease-btn),border-color .15s var(--ease-btn),background .15s var(--ease-btn)}
+  .intent{--acc:var(--lavender);display:flex;flex-direction:column;align-items:flex-start;gap:1rem;text-align:left;background:var(--paper);border:2px solid transparent;border-radius:var(--card-r);padding:1.625rem 1.5rem 1.5rem;cursor:pointer;font-family:inherit;box-shadow:var(--card-shadow);-webkit-tap-highlight-color:transparent;transition:transform .15s var(--ease-btn),border-color .15s var(--ease-btn),background .15s var(--ease-btn)}
   .intent svg{width:2.6rem;height:2.6rem;color:var(--acc)}
   .intent .t{font-family:'Bricolage';font-weight:600;font-size:1.1875rem;color:var(--ink)}
   .intent .d{font-size:.875rem;line-height:1.5;color:var(--soft)}
-  .intent:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--acc) 55%,transparent)}
-  .intent[aria-pressed="true"]{background:color-mix(in srgb,var(--acc) 12%,var(--paper));border-color:var(--acc)}
+  .intent:hover{transform:translateY(-3px);border-color:var(--acc);border-color:color-mix(in srgb,var(--acc) 55%,transparent)}
+  .intent[aria-pressed="true"]{background:var(--paper);background:color-mix(in srgb,var(--acc) 12%,var(--paper));border-color:var(--acc)}
   .intent:focus-visible{outline-color:var(--acc)}
 
   /* gifting — two warm panels */
@@ -197,8 +206,8 @@
   form{margin:2.125rem auto 0;max-width:26rem;text-align:left}
   .field{display:flex;flex-direction:column;gap:.4rem}
   label{font-size:.875rem;font-weight:500;color:var(--bone)}
-  input[type=email]{width:100%;border:1px solid color-mix(in srgb,var(--bone) 22%,transparent);background:var(--ink-2);color:var(--bone);border-radius:.875rem;padding:.9375rem 1.0625rem;font-size:1rem;font-family:inherit}
-  input[type=email]::placeholder{color:color-mix(in srgb,var(--bone-sub) 62%,transparent)}
+  input[type=email]{width:100%;border:1px solid rgba(251,249,246,.22);background:var(--ink-2);color:var(--bone);border-radius:.875rem;padding:.9375rem 1.0625rem;font-size:1rem;font-family:inherit}
+  input[type=email]::placeholder{color:rgba(201,193,210,.62)}
   input[type=email]:focus{outline:2px solid var(--gold);outline-offset:0;border-color:transparent}
   .consent{display:flex;gap:.625rem;align-items:flex-start;margin-top:1.125rem;font-size:.875rem;color:var(--bone-sub)}
   .consent label{color:var(--bone-sub);font-weight:400}
